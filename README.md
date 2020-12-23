@@ -1,6 +1,6 @@
 # 天下布魔-全域徵才-過濾器
 
-[Demo](https://purindaisuki.github.io/TenkafuMaRecruit/)
+[Demo](https://purindaisuki.github.io/TenkafuMaRecruitFilter/)
 
 ## 操作說明
 

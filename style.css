@@ -1,19 +1,20 @@
-html,body{
-    height: 100%;
+body{
+    margin: 0;
+    height: 100vh;
     background-color: rgb(248, 244, 236);
+    display:flex; 
+    flex-direction:column; 
 }
 
 main {
+    padding: 12px;
     display: flex; flex-wrap: wrap;
     justify-content: left;
-    min-height: 90%;
-    padding-bottom: 64px;
 }
 
 #filterPanel {
     margin-right: 16px;
     padding: 8px;
-    max-height: 480px;
     background-color: rgb(252, 252, 252);
     box-shadow: 2px 2px 2px gray;
 }
@@ -61,6 +62,7 @@ input {
 
 #filterBtn {
     width: 100%;
+    height: min-content;
     font-size: 18px;
 }
 
@@ -69,6 +71,7 @@ table {
     max-width: 600px;
     border-collapse: collapse;
     text-align: left;
+    box-shadow: 2px 2px 2px gray;
 }
 
 th {
@@ -76,20 +79,15 @@ th {
     border-top: 1px solid gray;
     border-bottom: 1px solid gray;
     padding: 8px;
-}
-
-th {
     cursor: pointer;
 }
 
 .asc:after{
     content: ' \25B2';
-    opacity: var(--ascOpacity);
 }
 
 .desc:after{
     content: ' \25BC';
-    opacity: var(--descOpacity);
 }
 
 td {
@@ -118,9 +116,9 @@ td {
 
 footer {
     border-top: 1px solid gray;
-    position: relative;
-    top: -64px;
-    height: 40px;
+    margin-top:auto;
+    padding: 20px;
+    min-height:40px
 }
 
 @media screen and (max-width:600px) {

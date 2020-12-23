@@ -107,6 +107,7 @@ function filter() {
                 type.innerHTML = char.type
                 category.innerHTML = char.category
                 appliedTags.innerHTML = tags.join(", ")
+                appliedTags.style.cursor = "pointer"
 
                 appliedTags.addEventListener("click", () => {
                     if (!confirm("確定要套用該角色標籤?"))
