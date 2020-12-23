@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>RecruitFilter</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="filter.js"></script>
+</head>
+
+<body>
+    <main>
+        <div id="filterPanel">
+            <ul id="filter">
+                <li>
+                    <label>標籤 1</label>
+                    <div class="tag">
+                        <input type="text" name="tags" list="tagList">
+                        <datalist id="tagList"></datalist>
+                        <img src="./img/deleteIcon.svg"/>
+                    </div>
+                </li>
+                <li>
+                    <label>標籤 2</label>
+                    <div class="tag">
+                        <input type="text" name="tags" list="tagList">
+                        <img src="./img/deleteIcon.svg"/>
+                    </div>
+                </li>
+                <li>
+                    <label>標籤 3</label>
+                    <div class="tag">
+                        <input type="text" name="tags" list="tagList">
+                        <img src="./img/deleteIcon.svg"/>
+                    </div>
+                </li>
+                <li>
+                    <label>標籤 4</label>
+                    <div class="tag">
+                        <input type="text" name="tags" list="tagList">
+                        <img src="./img/deleteIcon.svg"/>
+                    </div>
+                </li>
+                <li>
+                    <label>標籤 5</label>
+                    <div class="tag">
+                        <input type="text" name="tags" list="tagList">
+                        <img src="./img/deleteIcon.svg"/>
+                    </div>
+                </li>
+                <li>
+                    <label>至少符合標籤數</label>
+                    <select id = "tagAppliedNum">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </li>
+                <li>
+                    <label>招募時間</label>
+                    <input type="number" name="recruitTime" id="recruitHour"
+                        value=9 min=1 max=9 required>
+                    <scan>h:</scan>
+                    <input type="number" name="recruitTime" id="recruitMinute"
+                        value=0 step=10 min=0 max=50 required>
+                    <scan>m</scan>
+                </li>
+                <li>
+                    <button id="filterBtn">過濾</button>
+                </li>
+            </ul>
+        </div>
+        <div id = result-content>
+            <table>
+                <thead>
+                    <tr>
+                        <th>名字</th>
+                        <th>星數</th>
+                        <th>屬性</th>
+                        <th>定位</th>
+                        <th>應用標籤</th>
+                    </tr>
+                </thead>
+                <tbody id="result"></tbody>
+            </table>
+        </div>
+    </main>
+    <footer>
+        <a href="https://forms.gle/GfejWkNFDvkD2Q9JA">回報徵才結果</a>
+    </footer>
+</body>
+</html>

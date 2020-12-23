@@ -1,0 +1,139 @@
+html,body{
+    height: 100%;
+    background-color: rgb(248, 244, 236);
+}
+
+main {
+    display: flex; flex-wrap: wrap;
+    justify-content: left;
+    min-height: 90%;
+    padding-bottom: 64px;
+}
+
+#filterPanel {
+    margin-right: 16px;
+    padding: 8px;
+    max-height: 480px;
+    background-color: rgb(252, 252, 252);
+    box-shadow: 2px 2px 2px gray;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+li {
+    padding: 12px;
+}
+
+li:last-child {
+    display: flex;
+    justify-content: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.tag {
+    display: flex;
+}
+
+img {
+    width: 20px;
+    margin-left: 4px;
+}
+
+input {
+    width: 72px;
+}
+
+#recruitHour {
+    width: 24px;
+}
+
+#recruitMinute {
+    width: 32px;
+}
+
+#filterBtn {
+    width: 100%;
+    font-size: 18px;
+}
+
+table {
+    min-width: 420px;
+    max-width: 600px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th {
+    background-color: lightgray;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    padding: 8px;
+}
+
+th {
+    cursor: pointer;
+}
+
+.asc:after{
+    content: ' \25B2';
+    opacity: var(--ascOpacity);
+}
+
+.desc:after{
+    content: ' \25BC';
+    opacity: var(--descOpacity);
+}
+
+td {
+    border-bottom: 1px solid gray;padding: 10px;
+}
+
+.火屬性 {
+    background-color: rgb(255, 111, 55); color: black;
+}
+
+.水屬性 {
+    background-color: rgb(101, 219, 252); color: black;
+}
+
+.光屬性 {
+    background-color: rgb(255, 215, 90); color: black;
+}
+
+.闇屬性 {
+    background-color: rgb(198, 138, 239); color: black;
+}
+
+.風屬性 {
+    background-color: rgb(92, 226, 121); color: black;
+}
+
+footer {
+    border-top: 1px solid gray;
+    position: relative;
+    top: -64px;
+    height: 40px;
+}
+
+@media screen and (max-width:600px) {
+    main {
+        justify-content: center;
+    }
+    #filterPanel {
+        margin: 12px;
+    }
+    li {
+        display: inline-block;
+    }
+    #result-content {
+        margin: 12px;
+    }
+}
