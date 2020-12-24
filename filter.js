@@ -60,9 +60,6 @@ function filter() {
 
     const recruitHour = document.querySelector("#recruitHour").value
 
-    // generate combinations
-    const tagComb = Array.from(combinations(validTags, tagNum))
-
     fetch('./tags.json')
     .then(response => response.json())
     .then(tags => {
@@ -71,40 +68,48 @@ function filter() {
     })
     .then(response => response.json())
     .then(chars => {
+        // retrieve attributes and tags organized by attributes
         charAttrs = []
         for (const attr of charAttributes)
             charAttrs.push([attr.attribute, attr.tags])
-        // screen out ineligible characters
+
         let survivorSet = [[[]]]
-        tagComb.forEach(tags => {
-            let appliedTags = []
-            // filter by rank and time
-            var fChars
-            if (tags.includes("領袖"))
-                fChars = recruitHour < 9 ? chars : chars.filter(char => char.grade == 3)
-            else if (tags.includes("菁英"))
-                fChars = recruitHour < 9 ? chars.filter(char => char.grade < 3) : chars.filter(char => char.grade == 2)
-            else
-                fChars = recruitHour < 4 ? chars.filter(char => char.grade < 2) : chars.filter(char => char.grade < 3)
-            
-            // filter by type, category, race, body and oppai
-            for (let i = 0; i < 5; i++) {
-                if (tags.length == 0 || fChars.length == 0)
-                    break
-                charAttrs[i][1].forEach(attrTag => {
-                    if (tags.includes(attrTag)) {
-                        fChars = fChars.filter(t => t[charAttrs[i][0]] == attrTag)
-                        appliedTags.push(attrTag)
-                        tags.splice(tags.indexOf(attrTag), 1)
-                    }
-                })
-            }
-            
-            const res = fChars.filter(char => tags.every(t => char.tags.includes(t)))
-            const survivors = res.filter(char => !survivorSet.some(s => s[0].includes(char)))
-            if (survivors.length > 0)
-                survivorSet = survivorSet.concat([[survivors, tags.concat(appliedTags)]])
-        })
+        for (let k = 3; k >= tagNum; k--) {
+            // generate combinations
+            const tagComb = Array.from(combinations(validTags, k))
+
+            // screen out ineligible characters
+            tagComb.forEach(tags => {
+                let appliedTags = []
+                // filter by rank and time
+                var fChars
+                if (tags.includes("領袖"))
+                    fChars = recruitHour < 9 ? chars : chars.filter(char => char.grade == 3)
+                else if (tags.includes("菁英"))
+                    fChars = recruitHour < 9 ? chars.filter(char => char.grade < 3) : chars.filter(char => char.grade == 2)
+                else
+                    fChars = recruitHour < 4 ? chars.filter(char => char.grade < 2) : chars.filter(char => char.grade < 3)
+                
+                // filter by type, category, race, body and oppai
+                for (let i = 0; i < 5; i++) {
+                    if (tags.length == 0 || fChars.length == 0)
+                        break
+                    charAttrs[i][1].forEach(attrTag => {
+                        if (tags.includes(attrTag)) {
+                            fChars = fChars.filter(t => t[charAttrs[i][0]] == attrTag)
+                            appliedTags.push(attrTag)
+                            tags.splice(tags.indexOf(attrTag), 1)
+                        }
+                    })
+                }
+                
+                const res = fChars.filter(char => tags.every(t => char.tags.includes(t)))
+                const survivors = res.filter(char => !survivorSet.some(s => s[0].includes(char)))
+                if (survivors.length > 0)
+                    survivorSet = survivorSet.concat([[survivors, tags.concat(appliedTags)]])
+            })
+            chars = chars.filter(char => !survivorSet.some(s => s[0].includes(char)))
+        }
 
         survivorSet = survivorSet.slice(1, survivorSet.length)
 
@@ -150,6 +155,10 @@ function filter() {
             })
         })
     });
+}
+
+function filterAtLeast(num) {
+
 }
 
 function addTag(arr, input) {
