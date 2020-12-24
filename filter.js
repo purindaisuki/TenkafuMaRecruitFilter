@@ -80,14 +80,10 @@ function filter() {
             let appliedTags = []
             // filter by rank and time
             var fChars
-            if (tags.includes("領袖")) {
+            if (tags.includes("領袖"))
                 fChars = recruitHour < 9 ? chars : chars.filter(char => char.grade == 3)
-                appliedTags.push("領袖")
-            }
-            else if (tags.includes("菁英")) {
+            else if (tags.includes("菁英"))
                 fChars = recruitHour < 9 ? chars.filter(char => char.grade < 3) : chars.filter(char => char.grade == 2)
-                appliedTags.push("菁英")
-            }
             else
                 fChars = recruitHour < 4 ? chars.filter(char => char.grade < 2) : chars.filter(char => char.grade < 3)
             
