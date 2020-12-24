@@ -70,6 +70,7 @@ table {
     border-collapse: collapse;
     text-align: left;
     box-shadow: 2px 2px 2px gray;
+    min-width: 400px;
 }
 
 th {
