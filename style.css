@@ -16,6 +16,7 @@ main {
     margin-right: 16px;
     background-color: rgb(252, 252, 252);
     box-shadow: 2px 2px 2px gray;
+    height: max-content;
 }
 
 ul {
@@ -66,8 +67,6 @@ input {
 }
 
 table {
-    min-width: 420px;
-    max-width: 600px;
     border-collapse: collapse;
     text-align: left;
     box-shadow: 2px 2px 2px gray;
@@ -120,17 +119,17 @@ footer {
     min-height:40px
 }
 
-@media screen and (max-width:600px) {
+@media screen and (max-width:800px) {
     main {
         justify-content: center;
     }
     #filterPanel {
-        margin: 12px;
+        margin: 8px;
     }
     li {
         display: inline-block;
     }
     #result-content {
-        margin: 12px;
+        margin: 8px;
     }
 }

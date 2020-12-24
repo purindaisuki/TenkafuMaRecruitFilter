@@ -74,7 +74,7 @@ function filter() {
             charAttrs.push([attr.attribute, attr.tags])
 
         let survivorSet = [[[]]]
-        for (let k = 3; k >= tagNum; k--) {
+        for (let k = 5; k >= tagNum; k--) {
             // generate combinations
             const tagComb = Array.from(combinations(validTags, k))
 
