@@ -7,12 +7,14 @@ function main() {
     fetch('./tags.json')
     .then(response => response.json())
     .then(tags => {
-        tags.forEach(tag => {
-            let option = document.createElement("option")
-            option.setAttribute("value", tag)
-            option.textContent = tag
-            tagList.appendChild(option)
-        });
+        for (const attr of tags) {
+            attr.tags.forEach(tag => {
+                let option = document.createElement("option")
+                option.setAttribute("value", tag)
+                option.textContent = tag
+                tagList.appendChild(option)
+            });
+        }
     });
 
     document.querySelector("#filterBtn").addEventListener("click", () => filter())
@@ -61,23 +63,51 @@ function filter() {
     // generate combinations
     const tagComb = Array.from(combinations(validTags, tagNum))
 
-    fetch('./characters.json')
+    fetch('./tags.json')
+    .then(response => response.json())
+    .then(tags => {
+        charAttributes = tags
+        return fetch('./characters.json')
+    })
     .then(response => response.json())
     .then(chars => {
+        charAttrs = []
+        for (const attr of charAttributes)
+            charAttrs.push([attr.attribute, attr.tags])
         // screen out ineligible characters
         let survivorSet = [[[]]]
         tagComb.forEach(tags => {
+            let appliedTags = []
+            // filter by rank and time
             var fChars
-            if (tags.includes("領袖"))
+            if (tags.includes("領袖")) {
                 fChars = recruitHour < 9 ? chars : chars.filter(char => char.grade == 3)
-            else if (tags.includes("菁英"))
+                appliedTags.push("領袖")
+            }
+            else if (tags.includes("菁英")) {
                 fChars = recruitHour < 9 ? chars.filter(char => char.grade < 3) : chars.filter(char => char.grade == 2)
+                appliedTags.push("菁英")
+            }
             else
                 fChars = recruitHour < 4 ? chars.filter(char => char.grade < 2) : chars.filter(char => char.grade < 3)
+            
+            // filter by type, category, race, body and oppai
+            for (let i = 0; i < 5; i++) {
+                if (tags.length == 0 || fChars.length == 0)
+                    break
+                charAttrs[i][1].forEach(attrTag => {
+                    if (tags.includes(attrTag)) {
+                        fChars = fChars.filter(t => t[charAttrs[i][0]] == attrTag)
+                        appliedTags.push(attrTag)
+                        tags.splice(tags.indexOf(attrTag), 1)
+                    }
+                })
+            }
+            
             const res = fChars.filter(char => tags.every(t => char.tags.includes(t)))
             const survivors = res.filter(char => !survivorSet.some(s => s[0].includes(char)))
             if (survivors.length > 0)
-                survivorSet = survivorSet.concat([[survivors, tags]])
+                survivorSet = survivorSet.concat([[survivors, tags.concat(appliedTags)]])
         })
 
         survivorSet = survivorSet.slice(1, survivorSet.length)
