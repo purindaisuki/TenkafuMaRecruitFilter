@@ -1,6 +1,4 @@
-window.onload = () => main()
-
-function main() {
+window.onload = () => {
 
     //populate tags into drop lists
     let tagList = document.querySelector("#tagList")
@@ -45,7 +43,6 @@ function main() {
         .sort(comparator(Array.from(ths).indexOf(th), flag))
         .forEach(tr => table.appendChild(tr))
     }));
-
 }
 
 function filter() {
@@ -155,10 +152,6 @@ function filter() {
             })
         })
     });
-}
-
-function filterAtLeast(num) {
-
 }
 
 function addTag(arr, input) {
