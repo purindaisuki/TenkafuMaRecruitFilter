@@ -100,8 +100,8 @@ function filter() {
                     })
                 }
                 
-                const res = fChars.filter(char => tags.every(t => char.tags.includes(t)))
-                const survivors = res.filter(char => !survivorSet.some(s => s[0].includes(char)))
+                // filter by the rest tags
+                const survivors = fChars.filter(char => tags.every(t => char.tags.includes(t)))
                 if (survivors.length > 0)
                     survivorSet = survivorSet.concat([[survivors, tags.concat(appliedTags)]])
             })
