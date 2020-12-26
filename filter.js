@@ -1,7 +1,23 @@
 window.onload = () => {
 
+    let colorModeCheckbox = document.querySelector("#color-mode-checkbox")
+
+    // Set default theme according to user's preference from local storage or at OS level
+    if (localStorage.getItem("color-mode") == "dark"
+        || window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.documentElement.setAttribute("color-mode", "dark")
+        colorModeCheckbox.checked = true
+    }
+
+    // toggle color mode
+    colorModeCheckbox.addEventListener("change", event => {
+        let toMode = event.target.checked ? "dark" : "light"
+        document.documentElement.setAttribute("color-mode", toMode)
+        localStorage.setItem("color-mode", toMode)
+    })
+
     //populate tags into drop lists
-    let tagList = document.querySelector("#tagList")
+    let tagList = document.querySelector("#tag-list")
     fetch('./tags.json')
     .then(response => response.json())
     .then(tags => {
@@ -17,7 +33,7 @@ window.onload = () => {
 
     document.querySelector("#filterBtn").addEventListener("click", () => filter())
 
-    document.querySelectorAll("img").forEach(icon => icon.addEventListener("click", () => {
+    document.querySelectorAll("svg").forEach(icon => icon.addEventListener("click", () => {
         icon.parentElement.children[0].value = ""
     }))
 
@@ -47,7 +63,7 @@ window.onload = () => {
 
 function filter() {
     //read tags
-    const tagNum = document.querySelector("#tagAppliedNum").value
+    const tagNum = document.querySelector("#applied-tag-num").value
     let validTags = []
     Array.from(document.querySelectorAll(".tag")).forEach(element => addTag(validTags, element.children[0].value))
     if (validTags.length < tagNum) {
@@ -55,7 +71,7 @@ function filter() {
         return;
     }
 
-    const recruitHour = document.querySelector("#recruitHour").value
+    const recruitHour = document.querySelector("#recruit-hour").value
 
     fetch('./tags.json')
     .then(response => response.json())
@@ -155,8 +171,8 @@ function filter() {
 }
 
 function addTag(arr, input) {
-    let option = document.querySelector("#tagList option[value='" + input + "']")
-    if (option != null && option.value.length > 0)
+    let option = document.querySelector("#tag-list option[value='" + input + "']")
+    if (option != null && option.value.length > 0 && !arr.includes(input))
         arr.push(input)
 }
 

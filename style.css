@@ -1,21 +1,122 @@
+:root[color-mode="light"] {
+    --surface: #FFF8E1;
+    --border: lightgray;
+    --primary: #4f4846;
+    --secondary: #63a4ff;
+    --text: white;
+    --type-fire: #B71C1C;
+    --type-water: #01579B;
+    --type-light: #c17900;
+    --type-dark: #6A1B9A;
+    --type-wind: #1B5E20;
+    --color-mode-icon: url("./img/sun.svg");
+    --color-mode-icon-offset: 28px;
+}
+
+/* hide dark contents*/
+:root[color-mode="light"] .dark {
+    display: none;
+}
+
+:root[color-mode="dark"] {
+    --surface: #121212;
+    --border: gray;
+    --primary: #B0BEC5;
+    --secondary: #01579B;
+    --text: black;
+    --type-fire: #EF9A9A;
+    --type-water: #90CAF9;
+    --type-light: #FFF59D;
+    --type-dark: #CE93D8;
+    --type-wind: #A5D6A7;
+    --color-mode-icon: url("./img/moon.svg");
+    --color-mode-icon-offset: 6px;
+}
+
+/* hide light contents*/
+:root[color-mode="dark"] .light {
+    display: none;
+}
+
 body{
     margin: 0;
     height: 100vh;
-    background-color: rgb(248, 244, 236);
+    background-color: var(--surface);
     display:flex; 
-    flex-direction:column; 
+    flex-direction:column;
 }
 
-main {
+.menu {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: var(--surface); color: var(--primary);
+    font-size: 24px; font-weight: bold;
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 40px;
     padding: 12px;
+}
+
+#color-mode-switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 26px;
+}
+
+#color-mode-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; bottom: 0; left: 0; right: 0;
+    background-color: var(--secondary);
+    background-image: var(--color-mode-icon);
+    background-position: var(--color-mode-icon-offset);
+    background-repeat: no-repeat;
+    background-size: 18px 18px;
+    -webkit-transition: .4s;
+    transition: .4s;
+    border-radius: 26px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px; width: 18px;
+    left: 4px; bottom: 4px;
+    border-radius: 50%;
+    background-color: var(--surface);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.main-container {
+    padding: 12px; margin-top: 64px;
     display: flex; flex-wrap: wrap;
     justify-content: left;
 }
 
-#filterPanel {
+#filter-panel {
     margin-right: 16px;
-    background-color: rgb(252, 252, 252);
-    box-shadow: 2px 2px 2px gray;
+    background-color: var(--primary); color: var(--text);
+    box-shadow: .1rem .1rem .15rem gray;
     height: max-content;
 }
 
@@ -34,7 +135,7 @@ li:last-child {
     justify-content: center;
 }
 
-label {
+.main-container label {
     display: block;
     margin-bottom: 4px;
 }
@@ -43,20 +144,21 @@ label {
     display: flex;
 }
 
-img {
-    width: 20px;
+svg {
+    height: 20px; width: 20px;
     margin-left: 4px;
+    stroke: var(--text);
 }
 
 input {
     width: 72px;
 }
 
-#recruitHour {
+#recruit-hour {
     width: 24px;
 }
 
-#recruitMinute {
+#recruit-minute {
     width: 32px;
 }
 
@@ -69,16 +171,16 @@ input {
 table {
     border-collapse: collapse;
     text-align: left;
-    box-shadow: 2px 2px 2px gray;
+    box-shadow: .1rem .1rem .15rem gray;
     min-width: 400px;
 }
 
 th {
-    background-color: lightgray;
-    border-top: 1px solid gray;
-    border-bottom: 1px solid gray;
+    background-color: var(--primary); color: var(--surface);
+    border-top: 1px solid var(--border);
     padding: 8px;
     cursor: pointer;
+    font-weight: normal;
 }
 
 .asc:after{
@@ -90,47 +192,55 @@ th {
 }
 
 td {
-    border-bottom: 1px solid gray;padding: 10px;
+    border-top: 1px solid var(--border);
+    padding: 10px;
 }
 
 .火屬性 {
-    background-color: rgb(255, 111, 55); color: black;
+    background-color: var(--type-fire); color: var(--text);
 }
 
 .水屬性 {
-    background-color: rgb(101, 219, 252); color: black;
+    background-color: var(--type-water); color: var(--text);
 }
 
 .光屬性 {
-    background-color: rgb(255, 215, 90); color: black;
+    background-color: var(--type-light); color: var(--text);
 }
 
 .闇屬性 {
-    background-color: rgb(198, 138, 239); color: black;
+    background-color: var(--type-dark); color: var(--text);
 }
 
 .風屬性 {
-    background-color: rgb(92, 226, 121); color: black;
+    background-color: var(--type-wind); color: var(--text);
 }
 
 footer {
-    border-top: 1px solid gray;
+    border-top: 1px solid var(--primary);
     margin-top:auto;
     padding: 20px;
     min-height:40px
 }
 
+a {
+    color: var(--type-water);
+}
+
 @media screen and (max-width:800px) {
-    main {
+    .main-container {
         justify-content: center;
     }
-    #filterPanel {
+
+    #filter-panel {
         margin: 8px;
     }
+
     li {
         display: inline-block;
     }
-    #result-content {
+
+    #result-container {
         margin: 8px;
     }
 }

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html color-mode="light">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <meta name="color-scheme" content="dark light">
     <title>RecruitFilter</title>
     <link rel="icon" href="./favicon.ico">
     <link rel="stylesheet" href="style.css">
@@ -10,80 +11,108 @@
 </head>
 
 <body>
-    <main>
-        <div id="filterPanel">
-            <ul id="filter">
-                <li>
-                    <label>標籤 1</label>
-                    <div class="tag">
-                        <input type="text" name="tags" list="tagList">
-                        <datalist id="tagList"></datalist>
-                        <img src="./img/deleteIcon.svg"/>
-                    </div>
-                </li>
-                <li>
-                    <label>標籤 2</label>
-                    <div class="tag">
-                        <input type="text" name="tags" list="tagList">
-                        <img src="./img/deleteIcon.svg"/>
-                    </div>
-                </li>
-                <li>
-                    <label>標籤 3</label>
-                    <div class="tag">
-                        <input type="text" name="tags" list="tagList">
-                        <img src="./img/deleteIcon.svg"/>
-                    </div>
-                </li>
-                <li>
-                    <label>標籤 4</label>
-                    <div class="tag">
-                        <input type="text" name="tags" list="tagList">
-                        <img src="./img/deleteIcon.svg"/>
-                    </div>
-                </li>
-                <li>
-                    <label>標籤 5</label>
-                    <div class="tag">
-                        <input type="text" name="tags" list="tagList">
-                        <img src="./img/deleteIcon.svg"/>
-                    </div>
-                </li>
-                <li>
-                    <label>至少符合標籤數</label>
-                    <select id = "tagAppliedNum">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                    </select>
-                </li>
-                <li>
-                    <label>招募時間</label>
-                    <input type="number" name="recruitTime" id="recruitHour"
-                        value=9 min=1 max=9 required>
-                    <scan>h:</scan>
-                    <input type="number" name="recruitTime" id="recruitMinute"
-                        value=0 step=10 min=0 max=50 required>
-                    <scan>m</scan>
-                </li>
-                <li>
-                    <button id="filterBtn">篩選</button>
-                </li>
-            </ul>
+    <nav class="menu">
+        <div class="menu-container">
+            <span id="menu-text">天下布魔 全境徵才篩選器</span>
+            <label id="color-mode-switch">
+            <input type="checkbox" id="color-mode-checkbox">
+            <span class="slider"></span>
         </div>
-        <div id = result-content>
-            <table>
-                <thead>
-                    <tr>
-                        <th>名字</th>
-                        <th>星數</th>
-                        <th>屬性</th>
-                        <th>定位</th>
-                        <th>應用標籤</th>
-                    </tr>
-                </thead>
-                <tbody id="result"></tbody>
-            </table>
+    </nav>
+    <main>
+        <div class="main-container">
+            <div id="filter-panel">
+                <ul id="filter">
+                    <li>
+                        <label>標籤 1</label>
+                        <div class="tag">
+                            <input type="text" name="tags" list="tag-list">
+                            <datalist id="tag-list"></datalist>
+                            <svg id="delete-icon" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                <g stroke="currentColor" stroke-width="1.8"
+                                stroke-linecap="butt" fill="none" stroke-linejoin="round">
+                                    <polyline points="15 4 15 18 5 18 5 4"/>
+                                    <polyline points="18 4 2 4"/>
+                                    <polyline points="8.2 15 8.2 7"/>
+                                    <polyline points="11.8 15 11.8 7"/>
+                                    <polyline points="8 1 12 1"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </li>
+                    <li>
+                        <label>標籤 2</label>
+                        <div class="tag">
+                            <input type="text" name="tags" list="tag-list">
+                            <svg>
+                                <use href="#delete-icon"/>
+                            </svg>
+                        </div>
+                    </li>
+                    <li>
+                        <label>標籤 3</label>
+                        <div class="tag">
+                            <input type="text" name="tags" list="tag-list">
+                            <svg>
+                                <use href="#delete-icon"/>
+                            </svg>
+                        </div>
+                    </li>
+                    <li>
+                        <label>標籤 4</label>
+                        <div class="tag">
+                            <input type="text" name="tags" list="tag-list">
+                            <svg>
+                                <use href="#delete-icon"/>
+                            </svg>
+                        </div>
+                    </li>
+                    <li>
+                        <label>標籤 5</label>
+                        <div class="tag">
+                            <input type="text" name="tags" list="tag-list">
+                            <svg>
+                                <use href="#delete-icon"/>
+                            </svg>
+                        </div>
+                    </li>
+                    <li>
+                        <label>至少符合標籤數</label>
+                        <select id = "applied-tag-num">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label>招募時間</label>
+                        <input type="number" name="recruit-time" id="recruit-hour"
+                            value=9 min=1 max=9 required>
+                        <scan>h:</scan>
+                        <input type="number" name="recruit-time" id="recruit-minute"
+                            value=0 step=10 min=0 max=50 required>
+                        <scan>m</scan>
+                    </li>
+                    <li>
+                        <button id="filterBtn">篩選</button>
+                    </li>
+                </ul>
+            </div>
+            <div id=result-container>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>名字</th>
+                            <th>星數</th>
+                            <th>屬性</th>
+                            <th>定位</th>
+                            <th>應用標籤</th>
+                        </tr>
+                    </thead>
+                    <tbody id="result"></tbody>
+                </table>
+            </div>
         </div>
     </main>
     <footer>
