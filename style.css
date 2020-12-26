@@ -32,6 +32,10 @@
     --color-mode-icon-offset: 6px;
 }
 
+:root[color-mode="dark"] a {
+    color: var(--type-water-text);
+}
+
 body{
     margin: 0;
     height: 100vh;
@@ -215,10 +219,6 @@ footer {
     margin-top:auto;
     padding: 20px;
     min-height:40px
-}
-
-a {
-    color: var(--type-water);
 }
 
 @media screen and (max-width:800px) {
