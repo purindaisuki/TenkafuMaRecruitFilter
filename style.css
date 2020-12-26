@@ -1,41 +1,35 @@
 :root[color-mode="light"] {
     --surface: #FFF8E1;
-    --border: lightgray;
-    --primary: #4f4846;
+    --primary: #ECEFF1;
     --secondary: #63a4ff;
-    --text: white;
-    --type-fire: #B71C1C;
-    --type-water: #01579B;
-    --type-light: #c17900;
-    --type-dark: #6A1B9A;
-    --type-wind: #1B5E20;
+    --border: lightgray;
+    --shadow: gray;
+    --text: black;
+    --type-fire: #ff6659;
+    --type-water: #5eb8ff;
+    --type-light: #fff263;
+    --type-dark: #ae52d4;
+    --type-wind: #6abf69;
+
     --color-mode-icon: url("./img/sun.svg");
     --color-mode-icon-offset: 28px;
 }
 
-/* hide dark contents*/
-:root[color-mode="light"] .dark {
-    display: none;
-}
-
 :root[color-mode="dark"] {
     --surface: #121212;
-    --border: gray;
-    --primary: #B0BEC5;
+    --primary: #263238;
     --secondary: #01579B;
-    --text: black;
-    --type-fire: #EF9A9A;
-    --type-water: #90CAF9;
-    --type-light: #FFF59D;
-    --type-dark: #CE93D8;
-    --type-wind: #A5D6A7;
+    --border: gray;
+    --shadow: #121212;
+    --text: white;
+    --type-fire-text: #EF9A9A;
+    --type-water-text: #90CAF9;
+    --type-light-text: #FFF59D;
+    --type-dark-text: #CE93D8;
+    --type-wind-text: #A5D6A7;
+
     --color-mode-icon: url("./img/moon.svg");
     --color-mode-icon-offset: 6px;
-}
-
-/* hide light contents*/
-:root[color-mode="dark"] .light {
-    display: none;
 }
 
 body{
@@ -51,7 +45,7 @@ body{
     position: fixed;
     width: 100%;
     top: 0;
-    background-color: var(--surface); color: var(--primary);
+    background-color: var(--surface); color: var(--text);
     font-size: 24px; font-weight: bold;
 }
 
@@ -116,7 +110,7 @@ input:checked + .slider:before {
 #filter-panel {
     margin-right: 16px;
     background-color: var(--primary); color: var(--text);
-    box-shadow: .1rem .1rem .15rem gray;
+    box-shadow: .1rem .1rem .15rem var(--shadow);
     height: max-content;
 }
 
@@ -169,15 +163,15 @@ input {
 }
 
 table {
+    background-color: var(--primary); color: var(--text);
     border-collapse: collapse;
     text-align: left;
-    box-shadow: .1rem .1rem .15rem gray;
+    box-shadow: .1rem .1rem .15rem var(--shadow);
     min-width: 400px;
 }
 
 th {
-    background-color: var(--primary); color: var(--surface);
-    border-top: 1px solid var(--border);
+    color: var(--text);
     padding: 8px;
     cursor: pointer;
     font-weight: normal;
@@ -197,23 +191,23 @@ td {
 }
 
 .火屬性 {
-    background-color: var(--type-fire); color: var(--text);
+    background-color: var(--type-fire); color: var(--type-fire-text);
 }
 
 .水屬性 {
-    background-color: var(--type-water); color: var(--text);
+    background-color: var(--type-water); color: var(--type-water-text);
 }
 
 .光屬性 {
-    background-color: var(--type-light); color: var(--text);
+    background-color: var(--type-light); color: var(--type-light-text);
 }
 
 .闇屬性 {
-    background-color: var(--type-dark); color: var(--text);
+    background-color: var(--type-dark); color: var(--type-dark-text);
 }
 
 .風屬性 {
-    background-color: var(--type-wind); color: var(--text);
+    background-color: var(--type-wind); color: var(--type-wind-text);
 }
 
 footer {
