@@ -33,8 +33,8 @@ window.onload = () => {
 
     document.querySelector("#filterBtn").addEventListener("click", () => filter())
 
-    document.querySelectorAll("svg").forEach(icon => icon.addEventListener("click", () => {
-        icon.parentElement.children[0].value = ""
+    document.querySelectorAll("svg").forEach(icon => icon.addEventListener("click", event => {
+        event.target.parentElement.children[0].value = ""
     }))
 
     const getCellValue = (tr, idx) => tr.children[idx].innerHTML
