@@ -22,7 +22,7 @@
     {"name": "法斯帝國法師 佩托拉", "grade": 0, "type": "光屬性", "category": "攻擊者" , "race": "人類",  "body": "中體型", "oppai": "貧乳", "rank": "士兵", "tags": ["群體攻擊", "輸出", "士兵"], "nvTags": [], "exTags": []},
     {"name": "魔族戰士 芙蕾", "grade": 0, "type": "光屬性", "category": "守護者" , "race": "魔族",  "body": "中體型", "oppai": "美乳", "rank": "士兵", "tags": ["保護", "防禦", "士兵"], "nvTags": [], "exTags": []},
     {"name": "聖光騎士 瑪蒂娜", "grade": 0, "type": "光屬性", "category": "守護者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "士兵", "tags": ["保護", "生存力", "防禦", "士兵"], "nvTags": [], "exTags": []},
-    {"name": "主神教團僧兵 克蕾雅", "grade": 0, "type": "光屬性", "category": "治療者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "士兵", "tags": ["回復"], "nvTags": [], "exTags": ["干擾"]},
+    {"name": "主神教團僧兵 克蕾雅", "grade": 0, "type": "光屬性", "category": "治療者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "士兵", "tags": ["回復", "士兵"], "nvTags": [], "exTags": ["干擾"]},
 
     {"name": "精靈王 賽露西亞", "grade": 3, "type": "風屬性", "category": "輔助者" , "race": "亞人",  "body": "", "oppai": "", "rank": "領袖", "tags": ["支援", "爆發力", "領袖"], "nvTags": [], "exTags": []},
     {"name": "法斯公主 露露", "grade": 3, "type": "風屬性", "category": "治療者" , "race": "人類",  "body": "", "oppai": "", "rank": "領袖", "tags": ["回復", "領袖"], "nvTags": [], "exTags": []},
