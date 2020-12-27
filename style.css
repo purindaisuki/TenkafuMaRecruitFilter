@@ -4,7 +4,7 @@
     --secondary: #63a4ff;
     --border: lightgray;
     --shadow: gray;
-    --text: black;
+    --text: #121212;
     --type-fire: #ff6659;
     --type-water: #5eb8ff;
     --type-light: #fff263;
@@ -21,7 +21,7 @@
     --secondary: #01579B;
     --border: gray;
     --shadow: #121212;
-    --text: white;
+    --text: rgba(255,255,255,0.87);
     --type-fire-text: #EF9A9A;
     --type-water-text: #90CAF9;
     --type-light-text: #FFF59D;
@@ -54,11 +54,92 @@ body{
 }
 
 .menu-container {
+    height: 32px;
+    padding: 12px;
+}
+
+.menu-list {
+    list-style-type: none;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 40px;
-    padding: 12px;
+    margin: 0; padding: 0;
+}
+
+.menu-list li {
+    padding: 0;
+    padding-right: 12px;
+}
+
+.menu-list li:first-child {
+    margin-right: auto;
+    padding-left: 12px;
+}
+
+svg {
+    cursor: pointer;
+    stroke: var(--text);
+}
+
+#help-icon, #to-top-icon {
+    display: flex;
+    width: 32px; height: 32px;
+    stroke: none;
+    fill: currentColor;
+}
+
+#to-top-icon {
+    display: none;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: var(--primary); color: var(--text);
+    margin: 10% auto;
+    padding: 20px;
+    max-width: max-content;
+    width: 80%;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+@keyframes animatetop {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+.modal-header {
+    font-size: larger;
+    border-bottom: 1px solid var(--text);
+}
+
+.modal-body {
+    font-size: medium;
+}
+
+#close-modal {
+    color: var(--text);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cd-top--is-visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.cd-top--fade-out {
+    opacity: .5;
 }
 
 #color-mode-switch {
@@ -106,7 +187,7 @@ input:checked + .slider:before {
 }
 
 .main-container {
-    padding: 12px; margin-top: 64px;
+    padding: 12px; margin-top: 56px;
     display: flex; flex-wrap: wrap;
     justify-content: left;
 }
@@ -142,11 +223,9 @@ li:last-child {
     display: flex;
 }
 
-svg {
+.delete-icon {
     height: 20px; width: 20px;
     margin-left: 4px;
-    cursor: pointer;
-    stroke: var(--text);
 }
 
 input {
@@ -227,6 +306,18 @@ footer {
         justify-content: center;
     }
 
+    .title {
+        font-size: large;
+    }
+
+    #menu-text {
+        word-break: keep-all;
+    }
+
+    #to-top-icon {
+        display: flex;
+    }
+
     #filter-panel {
         margin: 8px;
     }
@@ -237,5 +328,11 @@ footer {
 
     #result-container {
         margin: 8px;
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+        min-width: 0;
     }
 }

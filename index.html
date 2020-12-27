@@ -13,12 +13,67 @@
 <body>
     <nav class="menu">
         <div class="menu-container">
-            <span id="menu-text">天下布魔 全境徵才篩選器</span>
-            <label id="color-mode-switch">
-            <input type="checkbox" id="color-mode-checkbox">
-            <span class="slider"></span>
+            <ul class="menu-list">
+                <li class="title">
+                    <span id="menu-text">天下布魔 徵才篩選器</span>
+                </li>
+                <li>
+                    <svg id="help-icon" xmlns="http://www.w3.org/2000/svg"
+                        enable-background="new 0 0 24 24" viewBox="0 0 24 24">
+                        <g>
+                            <rect fill="none" height="24" width="24"/>
+                            <path d="M13.25,16.74c0,0.69-0.53,1.26-1.25,1.26c-0.7,0-1.26-0.56-1.26-1.26c0-0.71,
+                            0.56-1.25,1.26-1.25 C12.71,15.49,13.25,16.04,13.25,16.74z M11.99,6c-1.77,0-2.98,
+                            1.15-3.43,2.49l1.64,0.69c0.22-0.67,0.74-1.48,1.8-1.48 c1.62,0,1.94,1.52,1.37,
+                            2.33c-0.54,0.77-1.47,1.29-1.96,2.16c-0.39,0.69-0.31,1.49-0.31,1.98h1.82c0-0.93,
+                            0.07-1.12,0.22-1.41 c0.39-0.72,1.11-1.06,1.87-2.17c0.68-1,0.42-2.36-0.02-3.08C14.48,
+                            6.67,13.47,6,11.99,6z M19,5H5v14h14V5 M19,3c1.1,0,2,0.9,2,2v14 c0,1.1-0.9,2-2,
+                            2H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2H19L19,3z"/>
+                        </g>
+                    </svg>
+                    <div id="help-modal" class="modal">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span id="close-modal">&times;</span>
+                                <span>操作說明</span>
+                            </div>
+                            <div class="modal-body">
+                                <p>選擇/輸入標籤以篩選角色 (至少一個)</p>
+                                <p>選擇之標籤數需大於或等於至少符合標籤數</p>
+                                <p>點擊表格標頭可依升/降序排列</p>
+                                <p>點擊表格角色之應用標籤可以該標籤再進一步篩選</p>
+                            </div>
+                            <div class="modal-header">
+                                <span>注意事項</span>
+                            </div>
+                            <div class="modal-body">
+                                <p>並未考慮標籤會被劃掉</p>
+                                <p>若搜尋結果只有1個2星也不代表必中2星，因為目前標籤尚未完全明朗</p>
+                                <p>目前關於領導(菁英)標籤的規則是9hr必3(2)星，其他時間則不保證</p>
+                                <p>搜尋結果高度依賴現有資料庫，請多多回報</p>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>            
+                    <svg id="to-top-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        height="24" width="24">
+                        <path d="M0 0h24v24H0V0z" fill="none"/>
+                        <path d="M9 12h2v5h2V12h2l-3-3-3 3zM7 6.5v2h10V6.5H4z"/>
+                        <path d="M0 0h24v24H0V0z" fill="none"/>
+                        <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2
+                        V5c0-1.1-.9-2-2-2z"/>
+                    </svg>
+                </li>
+                <li>            
+                    <label id="color-mode-switch">
+                    <input type="checkbox" id="color-mode-checkbox">
+                    <span class="slider"></span>
+                </li>
+            </ul> 
         </div>
     </nav>
+    <a href="#" id="cd-top"></a>
     <main>
         <div class="main-container">
             <div id="filter-panel">
@@ -28,7 +83,7 @@
                         <div class="tag">
                             <input type="text" name="tags" list="tag-list">
                             <datalist id="tag-list"></datalist>
-                            <svg id="delete-icon" viewBox="0 0 20 20"
+                            <svg id="delete-icon" class="delete-icon" viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg" version="1.1">
                                 <g stroke="currentColor" stroke-width="1.8"
                                 stroke-linecap="butt" fill="none" stroke-linejoin="round">
@@ -45,7 +100,7 @@
                         <label>標籤 2</label>
                         <div class="tag">
                             <input type="text" name="tags" list="tag-list">
-                            <svg>
+                            <svg class="delete-icon">
                                 <use href="#delete-icon"/>
                             </svg>
                         </div>
@@ -54,7 +109,7 @@
                         <label>標籤 3</label>
                         <div class="tag">
                             <input type="text" name="tags" list="tag-list">
-                            <svg>
+                            <svg class="delete-icon">
                                 <use href="#delete-icon"/>
                             </svg>
                         </div>
@@ -63,7 +118,7 @@
                         <label>標籤 4</label>
                         <div class="tag">
                             <input type="text" name="tags" list="tag-list">
-                            <svg>
+                            <svg class="delete-icon">
                                 <use href="#delete-icon"/>
                             </svg>
                         </div>
@@ -72,7 +127,7 @@
                         <label>標籤 5</label>
                         <div class="tag">
                             <input type="text" name="tags" list="tag-list">
-                            <svg>
+                            <svg class="delete-icon">
                                 <use href="#delete-icon"/>
                             </svg>
                         </div>

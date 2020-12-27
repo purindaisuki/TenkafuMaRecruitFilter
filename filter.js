@@ -1,7 +1,5 @@
 window.onload = () => {
 
-    //totop
-    //descriptions
     let colorModeCheckbox = document.querySelector("#color-mode-checkbox")
 
     // Set default theme according to user's preference from local storage or at OS level
@@ -18,6 +16,10 @@ window.onload = () => {
         localStorage.setItem("color-mode", toMode)
     })
 
+    // scroll back to top
+    let toTopBtn = document.querySelector("#back-to-top")
+    let cdTop = document.querySelector("#cd-top")
+
     //populate tags into drop lists
     let tagList = document.querySelector("#tag-list")
     fetch('./tags.json')
@@ -33,9 +35,34 @@ window.onload = () => {
         }
     });
 
+    // help info button
+    let helpModal = document.querySelector("#help-modal")
+    document.querySelector("#help-icon").addEventListener("click", () => {
+        helpModal.style.display = "block";
+    })
+
+    // close modal button
+    document.querySelector("#close-modal").addEventListener("click", () => {
+        helpModal.style.display = "none";
+    })
+    
+    // close modal when user clicks outside of the modal
+    window.onclick = (event) => {
+        if (event.target == helpModal)
+            helpModal.style.display = "none";
+    } 
+
+    // back to top button
+    document.querySelector("#to-top-icon").addEventListener("click", () => {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    })
+
+    // filter button
     document.querySelector("#filterBtn").addEventListener("click", () => filter())
 
-    document.querySelectorAll("svg").forEach(icon => icon.addEventListener("click", event => {
+    // delete tag buttons
+    document.querySelectorAll(".delete-icon").forEach(icon => icon.addEventListener("click", event => {
         event.target.closest("div").children[0].value = ""
     }))
 
