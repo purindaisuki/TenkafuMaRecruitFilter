@@ -1,5 +1,7 @@
 window.onload = () => {
 
+    //totop
+    //descriptions
     let colorModeCheckbox = document.querySelector("#color-mode-checkbox")
 
     // Set default theme according to user's preference from local storage or at OS level
@@ -34,7 +36,7 @@ window.onload = () => {
     document.querySelector("#filterBtn").addEventListener("click", () => filter())
 
     document.querySelectorAll("svg").forEach(icon => icon.addEventListener("click", event => {
-        event.target.parentElement.children[0].value = ""
+        event.target.closest("div").children[0].value = ""
     }))
 
     const getCellValue = (tr, idx) => tr.children[idx].innerHTML
