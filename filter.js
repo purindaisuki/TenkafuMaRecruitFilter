@@ -1,5 +1,5 @@
-window.onload = () => {
-
+document.addEventListener("DOMContentLoaded", function(){
+    // Set theme when DOM is ready
     let colorModeCheckbox = document.querySelector("#color-mode-checkbox")
 
     // Set default theme according to user's preference from local storage or at OS level
@@ -15,10 +15,9 @@ window.onload = () => {
         document.documentElement.setAttribute("color-mode", toMode)
         localStorage.setItem("color-mode", toMode)
     })
+  });
 
-    // scroll back to top
-    let toTopBtn = document.querySelector("#back-to-top")
-    let cdTop = document.querySelector("#cd-top")
+window.onload = () => {
 
     //populate tags into drop lists
     let tagList = document.querySelector("#tag-list")
@@ -91,7 +90,7 @@ window.onload = () => {
 }
 
 function filter() {
-    //read tags
+    // read tags
     const tagNum = document.querySelector("#applied-tag-num").value
     let validTags = []
     Array.from(document.querySelectorAll(".tag")).forEach(element => addTag(validTags, element.children[0].value))
