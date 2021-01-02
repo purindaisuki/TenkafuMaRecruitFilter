@@ -7,13 +7,13 @@
     {"name": "魔王 撒旦", "grade": 3, "type": "闇屬性", "category": "守護者" , "race": "魔族",  "body": "", "oppai": "", "rank": "領袖", "tags": ["生存力", "反擊", "回擊", "領袖"], "nvTags": ["保護"], "exTags": []},
 
     {"name": "聖騎士長 雷歐娜", "grade": 2, "type": "水屬性", "category": "守護者" , "race": "人類",  "body": "中體型", "oppai": "", "rank": "菁英", "tags": ["生存力", "菁英"], "nvTags": ["保護"], "exTags": []},
-    {"name": "妖狐 靜", "grade": 2, "type": "水屬性", "category": "妨礙者" , "race": "亞人",  "body": "小體型", "oppai": "美乳", "rank": "菁英", "tags": ["干擾", "菁英"], "nvTags": ["削弱"], "exTags": []},
+    {"name": "妖狐 靜", "grade": 2, "type": "水屬性", "category": "妨礙者" , "race": "亞人",  "body": "小體型", "oppai": "美乳", "rank": "菁英", "tags": ["干擾", "削弱", "菁英"], "nvTags": [], "exTags": []},
     {"name": "劍聖 神無雪", "grade": 2, "type": "火屬性", "category": "攻擊者" , "race": "亞人",  "body": "", "oppai": "美乳", "rank": "菁英", "tags": ["削弱", "越戰越強", "菁英"], "nvTags": [], "exTags": []},
     {"name": "神官長 菲歐菈", "grade": 2, "type": "光屬性", "category": "治療者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "菁英", "tags": ["回復", "菁英"], "nvTags": [], "exTags": []},
     {"name": "天才女軍師 布蘭妮", "grade": 2, "type": "光屬性", "category": "妨礙者" , "race": "人類",  "body": "", "oppai": "美乳", "rank": "菁英", "tags": ["群體攻擊", "菁英"], "nvTags": [], "exTags": []},
     {"name": "女忍者 凜月", "grade": 2, "type": "風屬性", "category": "攻擊者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "菁英", "tags": ["輸出", "群體攻擊", "菁英"], "nvTags": ["爆發力"], "exTags": []},
     {"name": "魔管家 艾可", "grade": 2, "type": "闇屬性", "category": "輔助者" , "race": "魔族",  "body": "中體型", "oppai": "美乳", "rank": "菁英", "tags": ["回復", "支援", "菁英"], "nvTags": [], "exTags": []},
-    {"name": "大將軍 朱諾安", "grade": 2, "type": "闇屬性", "category": "攻擊者" , "race": "人類",  "body": "", "oppai": "", "rank": "菁英", "tags": ["輸出", "菁英"], "nvTags": ["巨乳"], "exTags": []},
+    {"name": "大將軍 朱諾安", "grade": 2, "type": "闇屬性", "category": "攻擊者" , "race": "人類",  "body": "", "oppai": "巨乳", "rank": "菁英", "tags": ["輸出", "菁英"], "nvTags": [], "exTags": []},
 
     {"name": "美人魚 瑪蓮", "grade": 1, "type": "水屬性", "category": "治療者" , "race": "亞人",  "body": "中體型", "oppai": "", "rank": "", "tags": ["回復"], "nvTags": [], "exTags": []},
     {"name": "龍女 伊維絲", "grade": 1, "type": "火屬性", "category": "攻擊者" , "race": "亞人",  "body": "小體型", "oppai": "貧乳", "rank": "", "tags": ["輸出", "越戰越強", "群體攻擊"], "exTags": []},
@@ -25,7 +25,7 @@
     {"name": "黑暗精靈 索拉卡", "grade": 1, "type": "闇屬性", "category": "妨礙者" , "race": "亞人",  "body": "中體型", "oppai": "美乳", "rank": "", "tags": ["削弱"], "nvTags": [], "exTags": []},
 
     {"name": "矮人戰士 可兒", "grade": 0, "type": "水屬性", "category": "攻擊者" , "race": "亞人",  "body": "小體型", "oppai": "貧乳", "rank": "士兵", "tags": ["輸出", "爆發力"], "nvTags": [], "exTags": []},
-    {"name": "史萊姆娘 蘿爾", "grade": 0, "type": "水屬性", "category": "妨礙者" , "race": "魔族",  "body": "小體型", "oppai": "美乳", "rank": "士兵", "tags": ["削弱", "生存力"], "nvTags": ["干擾", "輸出"], "exTags": []},
+    {"name": "史萊姆娘 蘿爾", "grade": 0, "type": "水屬性", "category": "妨礙者" , "race": "魔族",  "body": "小體型", "oppai": "美乳", "rank": "士兵", "tags": ["削弱", "生存力"], "nvTags": ["干擾"], "exTags": []},
     {"name": "烈日國武士 桔梗", "grade": 0, "type": "火屬性", "category": "妨礙者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "士兵", "tags": ["輸出", "削弱"], "nvTags": [], "exTags": []},
     {"name": "雙蛇軍團士兵 夏琳", "grade": 0, "type": "火屬性", "category": "守護者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "士兵", "tags": ["防禦", "保護", "越戰越強", "群體攻擊"], "exTags": []},
     {"name": "蛇女 拉米亞", "grade": 0, "type": "火屬性", "category": "妨礙者" , "race": "亞人",  "body": "中體型", "oppai": "美乳", "rank": "士兵", "tags": ["干擾"], "nvTags": [], "exTags": []},
