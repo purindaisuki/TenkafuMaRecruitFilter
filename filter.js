@@ -1,24 +1,24 @@
-document.addEventListener("DOMContentLoaded", function(){
+// Set up color theme
+document.addEventListener("DOMContentLoaded", () => {
     // Set theme when DOM is ready
-    let colorModeCheckbox = document.querySelector("#color-mode-checkbox")
+    let colorThemeCheckbox = document.querySelector("#color-theme-checkbox")
 
     // Set default theme according to user's preference from local storage or at OS level
-    if (localStorage.getItem("color-mode") == "dark"
+    if (localStorage.getItem("color-theme") == "dark"
         || window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.documentElement.setAttribute("color-mode", "dark")
-        colorModeCheckbox.checked = true
+        document.documentElement.setAttribute("color-theme", "dark")
+        colorThemeCheckbox.checked = true
     }
 
-    // toggle color mode
-    colorModeCheckbox.addEventListener("change", event => {
-        let toMode = event.target.checked ? "dark" : "light"
-        document.documentElement.setAttribute("color-mode", toMode)
-        localStorage.setItem("color-mode", toMode)
+    // toggle color theme
+    colorThemeCheckbox.addEventListener("change", event => {
+        let toTheme = event.target.checked ? "dark" : "light"
+        document.documentElement.setAttribute("color-theme", toTheme)
+        localStorage.setItem("color-theme", toTheme)
     })
-  });
+});
 
 window.onload = () => {
-
     // help info button
     let helpModal = document.querySelector("#help-modal")
     document.querySelector("#help-icon").addEventListener("click", () => {
@@ -36,11 +36,11 @@ window.onload = () => {
         document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
     })
 
-    // add select tag buttons
+    // tag selection slots
     Array.from(document.querySelectorAll(".tag-container"))
     .forEach(slot => clearTag(slot))
 
-    // select tag
+    // tag selection modal
     let tagModal = document.querySelector("#tag-select-modal")
     document.querySelectorAll(".tag-container").forEach(tagBtn => {
         tagBtn.addEventListener("click", (event) => {
@@ -61,7 +61,7 @@ window.onload = () => {
         }
     }
 
-    // close tag select modal button
+    // close tag selection modal button
     document.querySelector("#close-tag-modal").addEventListener("click", () => {
         tagModal.style.display = "none"
         tagSearchElement.value = ""
@@ -76,14 +76,13 @@ window.onload = () => {
         .forEach(slot => clearTag(slot))
     })
 
+    // sort table  
     const getCellValue = (tr, idx) => tr.children[idx].innerHTML
-
     const comparator = (idx, asc) => (a, b) => getCellValue(asc ? a : b, idx).localeCompare(getCellValue(asc ? b : a, idx))
-
     document.querySelectorAll("th").forEach((th, _, ths) => th.addEventListener("click", () => {
-        // sort table
         const table = document.querySelector("#result")
         let isDesc = true;
+        // update order
         ths.forEach(thead => {
             if (thead.classList.contains("asc")) {
                 thead.classList.remove("asc")
@@ -100,6 +99,10 @@ window.onload = () => {
     }));
 }
 
+/**
+ * set up tag selection modal
+ * @param {HTMLElement} tagSlot where the chosen tag put
+ */
 function prepareModal(tagSlot) {
     //populate tags into tag select modal
     let tagList = document.querySelector("#tag-list")
@@ -145,9 +148,16 @@ function prepareModal(tagSlot) {
     })
 }
 
+/**
+ * create and add tag to slot
+ * @param {HTMLElement} slot where the chosen tag put
+ * @param {HTMLElement} target where the tags in the selection modal put
+ * @param {String} attribute attribute of the tag
+ * @param {attribute} tagStr name of the tag
+ */
 function addTag(slot, target, attribute, tagStr) {
     let tag = createTagElemet(attribute, tagStr)
-    // add tag event
+    // put the clicked tag into slot
     tag.addEventListener("click", () => {
         tag.classList.add("tag")
         slot.innerHTML = ""
@@ -162,7 +172,7 @@ function addTag(slot, target, attribute, tagStr) {
         slot.appendChild(tag)
         let removeIcon = document.createElement("span")
         removeIcon.innerHTML = "&times;"
-        removeIcon.setAttribute("style", "margin-right: 12px")
+        removeIcon.setAttribute("style", "margin-right: 12px; font-size: 20px; font-weight: bold")
         removeIcon.addEventListener("click", (event) => {
             event.stopImmediatePropagation();
             clearTag(slot)
@@ -177,27 +187,25 @@ function addTag(slot, target, attribute, tagStr) {
     target.appendChild(tag)
 }
 
-function createTagElemet(attribute, tagStr) {
-    // create tag icon
-    let useIcon = document.createElementNS("http://www.w3.org/2000/svg", "use")
-    useIcon.setAttributeNS(
-        "http://www.w3.org/1999/xlink",
-        "href",
-        "#" + attribute + "-icon"
-    )
-    let icon = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-    icon.classList.add("filter-icon")
-    icon.classList.add("tag-icon")
-    icon.appendChild(useIcon)
-    // add tag text
-    let tag = document.createElement("div")
-    let tagText =document.createElement("span")
-    tagText.innerHTML = tagStr
-    tag.appendChild(icon)
-    tag.appendChild(tagText)
-    return tag
+/**
+ * read all tags from slots
+ * @returns {Array<String>} tags string in array
+ */
+function readTag() {
+    let tags = []
+    Array.from(document.querySelectorAll(".tag")).forEach(tag => {
+        tagStr = tag.children[1].innerHTML
+        if (tagStr != null && tagStr.length > 0
+            && tagStr != "選擇標籤" && !tags.includes(tagStr))
+            tags.push(tagStr)
+    })
+    return tags
 }
 
+/**
+ * clear the tag slot
+ * @param {HTMLElement} slot where the chosen tag put
+ */
 function clearTag(slot) {
     slot.innerHTML = ""
     slot.classList.remove("tag-type-container")
@@ -212,8 +220,62 @@ function clearTag(slot) {
     slot.appendChild(plainTag)
 }
 
+/**
+ * create tag in HTMLElement
+ * @param {String} attribute attribute of the tag
+ * @param {attribute} tagStr name of the tag
+ * @returns {HTMLElement} tag in HTMLElement
+ */
+function createTagElemet(attribute, tagStr) {
+    let tag = document.createElement("div")
+    // create tag icon
+    let icon = createIconElement("#" + attribute + "-icon")
+    icon.classList.add("filter-icon")
+    icon.classList.add("tag-icon")
+    // add tag text
+    let tagText =document.createElement("span")
+    tagText.innerHTML = tagStr
+    tag.appendChild(icon)
+    tag.appendChild(tagText)
+    return tag
+}
+
+
+/**
+ * create icon in HTMLElement
+ * @param {String} iconId id of the icon HTMLElement
+ * @returns {HTMLElement} icon in HTMLElement
+ */
+function createIconElement(iconId) {
+    let useIcon = document.createElementNS("http://www.w3.org/2000/svg", "use")
+    useIcon.setAttributeNS("http://www.w3.org/1999/xlink", "href", iconId)
+    let icon = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+    icon.appendChild(useIcon)
+    return icon
+}
+
+/**
+ * create tooltip HTMLElement
+ * @param {String} tagStr name of the tag
+ * @returns {HTMLElement} tooltip HTMLElement
+ */
+function createTooltip(tagStr) {
+    let tooltipContainer = document.createElement("div")
+    tooltipContainer.classList.add("distinct")
+    tooltipContainer.appendChild(createIconElement("#star-icon"))
+    let text = document.createElement("span")
+    text.innerHTML = tagStr
+    tooltipContainer.appendChild(text)
+    // replace event by showing tooltip
+    tooltipContainer.addEventListener("click", event =>  event.stopImmediatePropagation())
+    return tooltipContainer
+}
+
+/**
+ * filter the characters by chosen tags
+ */
 function filter() {
-    // read tags
+    // read and check tags
     const tagNum = document.querySelector("#applied-tag-num").value
     let validTags = readTag()
     if (validTags.length < tagNum) {
@@ -236,7 +298,9 @@ function filter() {
         for (const attr of charAttributes)
             charAttrs.push([attr.attribute, attr.tags])
 
-        let survivorSet = [[[]]]
+        let result = document.querySelector("#result")
+        result.innerHTML = ""
+
         for (let k = 5; k >= tagNum; k--) {
             // generate combinations
             const tagComb = Array.from(combinations(validTags, k))
@@ -268,72 +332,110 @@ function filter() {
                 
                 // filter by the rest tags
                 const survivors = fChars.filter(char => tags.every(t => char.tags.includes(t)))
-                if (survivors.length > 0)
-                    survivorSet = survivorSet.concat([[survivors, tags.concat(appliedTags)]])
+                tags = tags.concat(appliedTags)
+                let tagStr = tags.join(", ")
+
+                let isDistinct = false
+                // whether any three (or fewer) tags can lead to only one characters
+                if (survivors.length == 1 && tags.length <= 3)
+                    isDistinct = true
+
+                let addedChars = Array.from(result.children)
+                if (addedChars.length > 0)
+                chars = chars.filter(
+                    char => !addedChars.some(s => s.children[0].innerText == char)
+                )
+
+                // update result
+                survivors.forEach(survivor => {
+                    let isExist = false
+                    addedChars.forEach(c => {
+                        if (c.children[0].innerText != survivor.name)
+                            return true
+                        isExist = true
+                        let distinctTagElement = c.children[c.childElementCount - 1].children[0]
+                        if (isDistinct) {
+                            if (distinctTagElement != null) {
+                                // update tooltip
+                                let curText = distinctTagElement.children[1]
+                                let curTags = curText.innerHTML.split("\n")
+                                let contains = false
+                                for (let i = curTags.length - 1; i >= 0; i--) {
+                                    // delete tags if contains another
+                                    if (curTags[i].includes(tagStr)) {
+                                        curTags.splice(i, 1)
+                                        curText.innerHTML = curTags.join("\n")
+                                        contains = true
+                                    }
+                                }
+                                if (contains)
+                                    curText.innerHTML = curTags.concat([tagStr]).join("\n")
+                                else {
+                                    // add distinct tags
+                                    curTags.push(tagStr)
+                                    curText.innerHTML = curTags.join("\n")
+                                }
+                            } else {
+                                // create tooltip
+                                c.children[c.childElementCount - 1].appendChild(createTooltip(tagStr))
+                            }
+                        }
+                    })
+
+                    if (isExist)
+                        return true
+
+                    let row = result.insertRow()
+                    let nameCol = row.insertCell()
+                    let gradeCol = row.insertCell()
+                    let typeCol = row.insertCell()
+                    let categoryCol = row.insertCell()
+                    let appliedTagsCol = row.insertCell()
+                        
+                    row.setAttribute("class", survivor.type)
+                    nameCol.innerHTML = survivor.name
+                    gradeCol.innerHTML = survivor.grade
+                    typeCol.innerHTML = survivor.type
+                    categoryCol.innerHTML = survivor.category
+                    appliedTagsCol.innerHTML = tagStr
+                    appliedTagsCol.style.cursor = "pointer"
+
+                    if (isDistinct) {
+                        // create tooltip
+                        appliedTagsCol.appendChild(createTooltip(tagStr))
+                    }
+
+                    appliedTagsCol.addEventListener("click", () => {
+                        if (!confirm("確定要套用該角色標籤?"))
+                            return;
+                        
+                        //update table
+                        let trs = document.querySelectorAll("tr")
+                        for (let i = trs.length - 1; i >0; i--) {
+                            const selectedTags = trs[i].lastChild.innerHTML.split(", ")
+                            if (!tags.every(t => selectedTags.includes(t)))
+                                document.querySelector("#result").deleteRow(i - 1)
+                        }
+                    })
+                })
             })
-            chars = chars.filter(char => !survivorSet.some(s => s[0].includes(char)))
         }
 
-        survivorSet = survivorSet.slice(1, survivorSet.length)
-
-        if (survivorSet.length == 0) {
+        if (result.innerHTML == "") {
             alert("無符合結果")
             return;
         }
-
-        // update result
-        let result = document.querySelector("#result")
-        result.innerHTML = ""
-        survivorSet.forEach(pair => {
-            let chars = pair[0]
-            let tags = pair[1]
-            chars.forEach(char => {
-                let row = result.insertRow()
-                let name = row.insertCell()
-                let grade = row.insertCell()
-                let type = row.insertCell()
-                let category = row.insertCell()
-                let appliedTags = row.insertCell()
-    
-                row.setAttribute("class", char.type)
-                name.innerHTML = char.name
-                grade.innerHTML = char.grade
-                type.innerHTML = char.type
-                category.innerHTML = char.category
-                appliedTags.innerHTML = tags.join(", ")
-                appliedTags.style.cursor = "pointer"
-
-                appliedTags.addEventListener("click", () => {
-                    if (!confirm("確定要套用該角色標籤?"))
-                        return;
-                    
-                    //update table
-                    let trs = document.querySelectorAll("tr")
-                    for (let i = trs.length - 1; i >0; i--) {
-                        const thatTags = trs[i].lastChild.innerHTML.split(", ")
-                        if (!tags.every(t => thatTags.includes(t)))
-                            document.querySelector("#result").deleteRow(i - 1)
-                    }
-                })
-            })
-        })
     });
 }
 
-function readTag() {
-    let tags = []
-    Array.from(document.querySelectorAll(".tag")).forEach(tag => {
-        tagStr = tag.children[1].innerHTML
-        if (tagStr != null && tagStr.length > 0
-            && tagStr != "選擇標籤" && !tags.includes(tagStr))
-            tags.push(tagStr)
-    })
-    return tags
-}
-
+/**
+ * generate the k-combination of elements
+ * @param {Array<T>} elements
+ * @param {Number} num k distinct elements
+ */
 function* combinations(elements, num) {
     for (let i = 0; i < elements.length; i++) {
-        if (num == 1)
+        if (num === 1)
             yield [elements[i]]
         else {
             let remaining = combinations(elements.slice(i + 1, elements.length), num - 1)

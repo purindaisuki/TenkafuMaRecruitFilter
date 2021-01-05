@@ -1,4 +1,4 @@
-:root[color-mode="light"] {
+:root[color-theme="light"] {
     --surface: #FFF8E1;
     --primary: #fff;
     --seconday: #fff;
@@ -24,12 +24,12 @@
     --rank: #827717;
     --else: #3E2723;
 
-    --color-mode-icon: url("./img/sun.svg");
-    --color-mode-icon-offset: 28px;
+    --color-theme-icon: url("./img/sun.svg");
+    --color-theme-icon-offset: 28px;
     --tab-border: 1px;
 }
 
-:root[color-mode="dark"] {
+:root[color-theme="dark"] {
     --surface: #121212;
     --primary: #263238;
     --seconday: #5eb8ff;
@@ -55,12 +55,12 @@
     --rank: #E6EE9C;
     --else: #D7CCC8;
 
-    --color-mode-icon: url("./img/moon.svg");
-    --color-mode-icon-offset: 6px;
+    --color-theme-icon: url("./img/moon.svg");
+    --color-theme-icon-offset: 6px;
     --tab-border: 0px;
 }
 
-:root[color-mode="dark"] a {
+:root[color-theme="dark"] a {
     color: var(--type-water-text);
 }
 
@@ -178,14 +178,14 @@ svg {
     opacity: .5;
 }
 
-#color-mode-switch {
+#color-theme-switch {
     position: relative;
     display: inline-block;
     width: 52px;
     height: 26px;
 }
 
-#color-mode-switch input {
+#color-theme-switch input {
     opacity: 0;
     width: 0;
     height: 0;
@@ -196,8 +196,8 @@ svg {
     cursor: pointer;
     top: 0; bottom: 0; left: 0; right: 0;
     background-color: var(--slider);
-    background-image: var(--color-mode-icon);
-    background-position: var(--color-mode-icon-offset);
+    background-image: var(--color-theme-icon);
+    background-position: var(--color-theme-icon-offset);
     background-repeat: no-repeat;
     background-size: 18px 18px;
     -webkit-transition: .4s;
@@ -472,17 +472,61 @@ th {
     font-weight: normal;
 }
 
-.asc:after{
+.asc:after {
     content: ' \25B2';
 }
 
-.desc:after{
+.desc:after {
     content: ' \25BC';
 }
 
 td {
     border-top: 1px solid var(--border);
     padding: 10px;
+}
+
+.distinct {
+    position: relative;
+    display: inline-block;
+}
+
+.distinct > svg {
+    height: 22px; width: 22px;
+    padding-left: 6px;
+    vertical-align: bottom;
+}
+
+.distinct > span {
+    visibility: visible;
+    width: max-content;
+    background-color: #555;
+    color: #fff;
+    white-space: pre-line;
+    text-align: left;
+    padding: 5px;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 1;
+    bottom: 10px; left: 130%;
+    transform: translateY(50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.distinct > span:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #555 transparent transparent;
+}
+
+.distinct:hover > span, .distinct:active > span {
+    visibility: visible;
+    opacity: 1;
 }
 
 .火屬性 {
@@ -638,6 +682,18 @@ footer {
 
     td {
         padding: 8px;
+    }
+
+    .distinct > span {
+        left: auto;
+        right: 130%;
+    }
+    
+    .distinct > span:after {
+        right: auto;
+        left: 100%;
+        margin-left: 0;
+        border-color: transparent transparent transparent #555;
     }
 }
 

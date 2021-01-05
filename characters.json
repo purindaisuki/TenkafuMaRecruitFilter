@@ -25,7 +25,7 @@
     {"name": "黑暗精靈 索拉卡", "grade": 1, "type": "闇屬性", "category": "妨礙者" , "race": "亞人",  "body": "中體型", "oppai": "美乳", "rank": "", "tags": ["削弱"], "nvTags": [], "exTags": []},
 
     {"name": "矮人戰士 可兒", "grade": 0, "type": "水屬性", "category": "攻擊者" , "race": "亞人",  "body": "小體型", "oppai": "貧乳", "rank": "士兵", "tags": ["輸出", "爆發力"], "nvTags": [], "exTags": []},
-    {"name": "史萊姆娘 蘿爾", "grade": 0, "type": "水屬性", "category": "妨礙者" , "race": "魔族",  "body": "小體型", "oppai": "美乳", "rank": "士兵", "tags": ["削弱", "生存力"], "nvTags": ["干擾"], "exTags": []},
+    {"name": "史萊姆娘 蘿爾", "grade": 0, "type": "水屬性", "category": "妨礙者" , "race": "魔族",  "body": "小體型", "oppai": "美乳", "rank": "士兵", "tags": ["削弱", "生存力"], "nvTags": [], "exTags": ["干擾"]},
     {"name": "烈日國武士 桔梗", "grade": 0, "type": "火屬性", "category": "妨礙者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "士兵", "tags": ["輸出", "削弱"], "nvTags": [], "exTags": []},
     {"name": "雙蛇軍團士兵 夏琳", "grade": 0, "type": "火屬性", "category": "守護者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "士兵", "tags": ["防禦", "保護", "越戰越強", "群體攻擊"], "exTags": []},
     {"name": "蛇女 拉米亞", "grade": 0, "type": "火屬性", "category": "妨礙者" , "race": "亞人",  "body": "中體型", "oppai": "美乳", "rank": "士兵", "tags": ["干擾"], "nvTags": [], "exTags": []},
