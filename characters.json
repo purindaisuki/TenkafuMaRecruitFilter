@@ -12,7 +12,7 @@
     {"name": "神官長 菲歐菈", "grade": 2, "type": "光屬性", "category": "治療者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "菁英", "tags": ["回復", "菁英"], "nvTags": [], "exTags": []},
     {"name": "天才女軍師 布蘭妮", "grade": 2, "type": "光屬性", "category": "妨礙者" , "race": "人類",  "body": "", "oppai": "美乳", "rank": "菁英", "tags": ["群體攻擊", "菁英"], "nvTags": [], "exTags": []},
     {"name": "女忍者 凜月", "grade": 2, "type": "風屬性", "category": "攻擊者" , "race": "人類",  "body": "中體型", "oppai": "美乳", "rank": "菁英", "tags": ["輸出", "群體攻擊", "菁英"], "nvTags": ["爆發力"], "exTags": []},
-    {"name": "魔管家 艾可", "grade": 2, "type": "闇屬性", "category": "輔助者" , "race": "魔族",  "body": "中體型", "oppai": "美乳", "rank": "菁英", "tags": ["回復", "支援", "菁英"], "nvTags": [], "exTags": []},
+    {"name": "魔管家 艾可", "grade": 2, "type": "闇屬性", "category": "輔助者" , "race": "魔族",  "body": "中體型", "oppai": "美乳", "rank": "菁英", "tags": ["支援", "菁英"], "nvTags": ["回復"], "exTags": []},
     {"name": "大將軍 朱諾安", "grade": 2, "type": "闇屬性", "category": "攻擊者" , "race": "人類",  "body": "", "oppai": "巨乳", "rank": "菁英", "tags": ["輸出", "菁英"], "nvTags": [], "exTags": []},
 
     {"name": "美人魚 瑪蓮", "grade": 1, "type": "水屬性", "category": "治療者" , "race": "亞人",  "body": "中體型", "oppai": "", "rank": "", "tags": ["回復"], "nvTags": [], "exTags": []},
