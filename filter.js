@@ -303,41 +303,41 @@ function filter() {
 
         for (let k = 5; k >= tagNum; k--) {
             // generate combinations
-            const tagComb = Array.from(combinations(validTags, k))
+            const queryTagsComb = Array.from(combinations(validTags, k))
 
             // screen out ineligible characters
-            tagComb.forEach(tags => {
+            queryTagsComb.forEach(queryTags => {
                 let appliedTags = []
                 // filter by rank and time
                 var fChars
-                if (tags.includes("領袖"))
+                if (queryTags.includes("領袖"))
                     fChars = recruitHour < 9 ? chars : chars.filter(char => char.grade == 3)
-                else if (tags.includes("菁英"))
+                else if (queryTags.includes("菁英"))
                     fChars = recruitHour < 9 ? chars.filter(char => char.grade < 3) : chars.filter(char => char.grade == 2)
                 else
                     fChars = recruitHour < 4 ? chars.filter(char => char.grade < 2) : chars.filter(char => char.grade < 3)
                 
                 // filter by type, category, race, body and oppai
                 for (let i = 0; i < 5; i++) {
-                    if (tags.length == 0 || fChars.length == 0)
+                    if (queryTags.length == 0 || fChars.length == 0)
                         break
                     charAttrs[i][1].forEach(attrTag => {
-                        if (tags.includes(attrTag)) {
+                        if (queryTags.includes(attrTag)) {
                             fChars = fChars.filter(t => t[charAttrs[i][0]] == attrTag)
                             appliedTags.push(attrTag)
-                            tags.splice(tags.indexOf(attrTag), 1)
+                            queryTags.splice(queryTags.indexOf(attrTag), 1)
                         }
                     })
                 }
                 
                 // filter by the rest tags
-                const survivors = fChars.filter(char => tags.every(t => char.tags.includes(t)))
-                tags = tags.concat(appliedTags)
-                let tagStr = tags.join(", ")
+                const survivors = fChars.filter(char => queryTags.every(t => char.tags.includes(t)))
+                queryTags = queryTags.concat(appliedTags)
+                let queryTagsStr = queryTags.join(", ")
 
                 let isDistinct = false
                 // whether any three (or fewer) tags can lead to only one characters
-                if (survivors.length == 1 && tags.length <= 3)
+                if (survivors.length == 1 && queryTags.length <= 3)
                     isDistinct = true
 
                 let addedChars = Array.from(result.children)
@@ -358,26 +358,27 @@ function filter() {
                             if (distinctTagElement != null) {
                                 // update tooltip
                                 let curText = distinctTagElement.children[1]
-                                let curTags = curText.innerHTML.split("\n")
+                                let curTagsSet= curText.innerHTML.split("\n")
                                 let contains = false
-                                for (let i = curTags.length - 1; i >= 0; i--) {
+                                for (let i = curTagsSet.length - 1; i >= 0; i--) {
                                     // delete tags if contains another
-                                    if (curTags[i].includes(tagStr)) {
-                                        curTags.splice(i, 1)
-                                        curText.innerHTML = curTags.join("\n")
+                                    let curTags = curTagsSet[i].split(", ")
+                                    let tagStrs = queryTagsStr.split(", ")
+                                    if (tagStrs.every(queryTag => curTags.includes(queryTag))) {
+                                        curTagsSet.splice(i, 1)
                                         contains = true
                                     }
                                 }
                                 if (contains)
-                                    curText.innerHTML = curTags.concat([tagStr]).join("\n")
+                                    curText.innerHTML = curTagsSet.concat([queryTagsStr]).join("\n")
                                 else {
                                     // add distinct tags
-                                    curTags.push(tagStr)
-                                    curText.innerHTML = curTags.join("\n")
+                                    curTagsSet.push(queryTagsStr)
+                                    curText.innerHTML = curTagsSet.join("\n")
                                 }
                             } else {
                                 // create tooltip
-                                c.children[c.childElementCount - 1].appendChild(createTooltip(tagStr))
+                                c.children[c.childElementCount - 1].appendChild(createTooltip(queryTagsStr))
                             }
                         }
                     })
@@ -387,22 +388,32 @@ function filter() {
 
                     let row = result.insertRow()
                     let nameCol = row.insertCell()
-                    let gradeCol = row.insertCell()
-                    let typeCol = row.insertCell()
+                    let rarityCol = row.insertCell()
                     let categoryCol = row.insertCell()
                     let appliedTagsCol = row.insertCell()
                         
                     row.setAttribute("class", survivor.type)
                     nameCol.innerHTML = survivor.name
-                    gradeCol.innerHTML = survivor.grade
-                    typeCol.innerHTML = survivor.type
+                    switch (survivor.grade) {
+                        case 3:
+                            rarityCol.innerHTML = "SSR"
+                            break
+                        case 2:
+                            rarityCol.innerHTML = "SR"
+                            break
+                        case 1:
+                            rarityCol.innerHTML = "R"
+                            break
+                        default:
+                            rarityCol.innerHTML = "N"
+                    }
                     categoryCol.innerHTML = survivor.category
-                    appliedTagsCol.innerHTML = tagStr
+                    appliedTagsCol.innerHTML = queryTagsStr
                     appliedTagsCol.style.cursor = "pointer"
 
                     if (isDistinct) {
                         // create tooltip
-                        appliedTagsCol.appendChild(createTooltip(tagStr))
+                        appliedTagsCol.appendChild(createTooltip(queryTagsStr))
                     }
 
                     appliedTagsCol.addEventListener("click", () => {
@@ -413,7 +424,7 @@ function filter() {
                         let trs = document.querySelectorAll("tr")
                         for (let i = trs.length - 1; i >0; i--) {
                             const selectedTags = trs[i].lastChild.innerHTML.split(", ")
-                            if (!tags.every(t => selectedTags.includes(t)))
+                            if (!queryTags.every(t => selectedTags.includes(t)))
                                 document.querySelector("#result").deleteRow(i - 1)
                         }
                     })
