@@ -73,40 +73,39 @@ window.onload = () => {
         .forEach(slot => clearTag(slot))
     })
 
+    // filter button
+    document.querySelector("#filterBtn").addEventListener("click", () => filter())
+
     // sort table  
-    const getCellValue = (tr, idx) => tr.children[idx].innerHTML
-    const comparator = (idx, asc) => (a, b) => getCellValue(asc ? a : b, idx).localeCompare(getCellValue(asc ? b : a, idx))
-    const table = document.querySelector("#result")
     document.querySelectorAll("th").forEach((th, _, ths) => th.addEventListener("click", () => {
         let isAsc = false
         // update order
         ths.forEach(thead => {
             if (thead.classList.contains("asc") && thead == th)
                isAsc = true
-
-            thead.classList.remove("asc")
-            thead.classList.remove("desc")
         })
-        th.classList.add(isAsc ? "desc" : "asc")
-        Array.from(table.querySelectorAll("tr"))
-        .sort(comparator(Array.from(ths).indexOf(th), !isAsc))
-        .forEach(tr => table.appendChild(tr))
+        sortTable(th, !isAsc)
     }))
+}
 
-    // filter button
-    document.querySelector("#filterBtn").addEventListener("click", () => {
-        filter()
-        // sort results by rarity
-        let thRarity = document.querySelector("#rarity")
-        document.querySelectorAll("th").forEach(thead => {
-            thead.classList.remove("asc")
-            thead.classList.remove("desc")
-        })
-        thRarity.classList.add("desc")
-        Array.from(table.querySelectorAll("tr"))
-        .sort(comparator(thRarity, false))
-        .forEach(tr => table.appendChild(tr))
+/**
+ * Sort table content
+ * @param {HTMLElement} target sort table content by the element
+ * @param {boolean} toAsc whether it's in ascending order
+ */
+function sortTable(target, toAsc) {
+    const getCellValue = (tr, idx) => tr.children[idx].innerHTML
+    const comparator = (idx, asc) => (a, b) => getCellValue(asc ? a : b, idx).localeCompare(getCellValue(asc ? b : a, idx))
+    const table = document.querySelector("#result")
+    const ths = document.querySelectorAll("th")
+    ths.forEach(thead => {
+        thead.classList.remove("asc")
+        thead.classList.remove("desc")
     })
+    target.classList.add(toAsc ? "asc" : "desc")
+    Array.from(table.querySelectorAll("tr"))
+    .sort(comparator(Array.from(ths).indexOf(target), toAsc))
+    .forEach(tr => table.appendChild(tr))
 }
 
 /**
@@ -446,6 +445,9 @@ function filter() {
             alert("無符合結果")
             return
         }
+
+        // sort results by rarity
+        sortTable(document.querySelector("#rarity"), false)
     })
 }
 
