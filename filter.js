@@ -67,9 +67,6 @@ window.onload = () => {
         tagSearchElement.value = ""
     })
 
-    // filter button
-    document.querySelector("#filterBtn").addEventListener("click", () => filter())
-
     // delete all tags
     document.querySelector("#delete-icon").addEventListener("click", event => {
         Array.from(document.querySelectorAll(".tag-container"))
@@ -79,24 +76,37 @@ window.onload = () => {
     // sort table  
     const getCellValue = (tr, idx) => tr.children[idx].innerHTML
     const comparator = (idx, asc) => (a, b) => getCellValue(asc ? a : b, idx).localeCompare(getCellValue(asc ? b : a, idx))
+    const table = document.querySelector("#result")
     document.querySelectorAll("th").forEach((th, _, ths) => th.addEventListener("click", () => {
-        const table = document.querySelector("#result")
-        let isDesc = true;
+        let isAsc = false
         // update order
         ths.forEach(thead => {
-            if (thead.classList.contains("asc")) {
-                thead.classList.remove("asc")
-                if (thead == th)
-                    isDesc = false
-            }
-            if (thead.classList.contains("desc"))
-                thead.classList.remove("desc")
+            if (thead.classList.contains("asc") && thead == th)
+               isAsc = true
+
+            thead.classList.remove("asc")
+            thead.classList.remove("desc")
         })
-        th.classList.add(isDesc ? "asc" : "desc")
+        th.classList.add(isAsc ? "desc" : "asc")
         Array.from(table.querySelectorAll("tr"))
-        .sort(comparator(Array.from(ths).indexOf(th), isDesc))
+        .sort(comparator(Array.from(ths).indexOf(th), !isAsc))
         .forEach(tr => table.appendChild(tr))
-    }));
+    }))
+
+    // filter button
+    document.querySelector("#filterBtn").addEventListener("click", () => {
+        filter()
+        // sort results by rarity
+        let thRarity = document.querySelector("#rarity")
+        document.querySelectorAll("th").forEach(thead => {
+            thead.classList.remove("asc")
+            thead.classList.remove("desc")
+        })
+        thRarity.classList.add("desc")
+        Array.from(table.querySelectorAll("tr"))
+        .sort(comparator(thRarity, false))
+        .forEach(tr => table.appendChild(tr))
+    })
 }
 
 /**
@@ -174,7 +184,7 @@ function addTag(slot, target, attribute, tagStr) {
         removeIcon.innerHTML = "&times;"
         removeIcon.setAttribute("style", "margin-right: 12px; font-size: 20px; font-weight: bold")
         removeIcon.addEventListener("click", (event) => {
-            event.stopImmediatePropagation();
+            event.stopImmediatePropagation()
             clearTag(slot)
         })
         slot.appendChild(removeIcon)
@@ -280,7 +290,7 @@ function filter() {
     let validTags = readTag()
     if (validTags.length < tagNum) {
         alert("有效標籤數量過少")
-        return;
+        return
     }
 
     const recruitHour = document.querySelector("#recruit-hour").value
@@ -418,11 +428,11 @@ function filter() {
 
                     appliedTagsCol.addEventListener("click", () => {
                         if (!confirm("確定要套用該角色標籤?"))
-                            return;
+                            return
                         
                         //update table
                         let trs = document.querySelectorAll("tr")
-                        for (let i = trs.length - 1; i >0; i--) {
+                        for (let i = trs.length - 1; i > 0; i--) {
                             const selectedTags = trs[i].lastChild.innerHTML.split(", ")
                             if (!queryTags.every(t => selectedTags.includes(t)))
                                 document.querySelector("#result").deleteRow(i - 1)
@@ -434,9 +444,9 @@ function filter() {
 
         if (result.innerHTML == "") {
             alert("無符合結果")
-            return;
+            return
         }
-    });
+    })
 }
 
 /**
