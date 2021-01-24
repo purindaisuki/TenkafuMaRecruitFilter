@@ -292,7 +292,7 @@ function filter() {
         return
     }
 
-    const recruitHour = document.querySelector("#recruit-hour").value
+    const enlistHour = document.querySelector("#enlist-hour").value
 
     fetch('./tags.json')
     .then(response => response.json())
@@ -320,11 +320,11 @@ function filter() {
                 // filter by rank and time
                 var fChars
                 if (queryTags.includes("領袖"))
-                    fChars = recruitHour < 9 ? chars : chars.filter(char => char.grade == 3)
+                    fChars = enlistHour < 9 ? chars : chars.filter(char => char.grade == 3)
                 else if (queryTags.includes("菁英"))
-                    fChars = recruitHour < 9 ? chars.filter(char => char.grade < 3) : chars.filter(char => char.grade == 2)
+                    fChars = enlistHour < 9 ? chars.filter(char => char.grade < 3) : chars.filter(char => char.grade == 2)
                 else
-                    fChars = recruitHour < 4 ? chars.filter(char => char.grade < 2) : chars.filter(char => char.grade < 3)
+                    fChars = enlistHour < 4 ? chars.filter(char => char.grade < 2) : chars.filter(char => char.grade < 3)
                 
                 // filter by type, category, race, body and oppai
                 for (let i = 0; i < 5; i++) {
