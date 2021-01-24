@@ -456,6 +456,17 @@ select, #tag-search-container > label > input {
     transition: transform .5s,opacity 1s
 }
 
+#result-container {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 469px;
+    scrollbar-width: thin;
+}
+
+#result-container::-webkit-scrollbar {
+    width: 6px;
+}
+
 table {
     background-color: var(--filter); color: var(--text);
     border-collapse: collapse;
@@ -672,6 +683,7 @@ footer {
     }
 
     #result-container {
+        max-height: none;
         margin: 8px;
         width: 100%;
     }
