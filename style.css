@@ -1,4 +1,4 @@
-:root[color-theme="light"] {
+:root[color-mode="light"] {
     --surface: #FFF8E1;
     --primary: #fff;
     --seconday: #fff;
@@ -24,12 +24,12 @@
     --rank: #827717;
     --else: #3E2723;
 
-    --color-theme-icon: url("./img/sun.svg");
-    --color-theme-icon-offset: 28px;
+    --color-mode-icon: url("./img/sun.svg");
+    --color-mode-icon-offset: 28px;
     --tab-border: 1px;
 }
 
-:root[color-theme="dark"] {
+:root[color-mode="dark"] {
     --surface: #121212;
     --primary: #263238;
     --seconday: #5eb8ff;
@@ -55,12 +55,12 @@
     --rank: #E6EE9C;
     --else: #D7CCC8;
 
-    --color-theme-icon: url("./img/moon.svg");
-    --color-theme-icon-offset: 6px;
+    --color-mode-icon: url("./img/moon.svg");
+    --color-mode-icon-offset: 6px;
     --tab-border: 0px;
 }
 
-:root[color-theme="dark"] a {
+:root[color-mode="dark"] a {
     color: var(--type-water-text);
 }
 
@@ -178,14 +178,14 @@ svg {
     opacity: .5;
 }
 
-#color-theme-switch {
+#color-mode-switch {
     position: relative;
     display: inline-block;
     width: 52px;
     height: 26px;
 }
 
-#color-theme-switch input {
+#color-mode-switch input {
     opacity: 0;
     width: 0;
     height: 0;
@@ -196,8 +196,8 @@ svg {
     cursor: pointer;
     top: 0; bottom: 0; left: 0; right: 0;
     background-color: var(--slider);
-    background-image: var(--color-theme-icon);
-    background-position: var(--color-theme-icon-offset);
+    background-image: var(--color-mode-icon);
+    background-position: var(--color-mode-icon-offset);
     background-repeat: no-repeat;
     background-size: 18px 18px;
     -webkit-transition: .4s;

@@ -1,20 +1,23 @@
+// A character filter for enlist in the game TenkafuMA!
+// @author purindaisuki
+
 // Set up color theme
 document.addEventListener("DOMContentLoaded", () => {
     // Set theme when DOM is ready
-    let colorThemeCheckbox = document.querySelector("#color-theme-checkbox")
+    let colorThemeCheckbox = document.querySelector("#color-mode-checkbox")
 
     // Set default theme according to user's preference from local storage or at OS level
-    if (localStorage.getItem("color-theme") == "dark"
+    if (localStorage.getItem("color-mode") == "dark"
         || window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.documentElement.setAttribute("color-theme", "dark")
+        document.documentElement.setAttribute("color-mode", "dark")
         colorThemeCheckbox.checked = true
     }
 
     // toggle color theme
     colorThemeCheckbox.addEventListener("change", event => {
         let toTheme = event.target.checked ? "dark" : "light"
-        document.documentElement.setAttribute("color-theme", toTheme)
-        localStorage.setItem("color-theme", toTheme)
+        document.documentElement.setAttribute("color-mode", toTheme)
+        localStorage.setItem("color-mode", toTheme)
     })
 });
 
