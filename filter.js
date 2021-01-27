@@ -1,6 +1,9 @@
 // A character filter for enlist in the game TenkafuMA!
 // @author purindaisuki
 
+//global variable
+var queryTagNum
+
 // Set up color theme
 document.addEventListener("DOMContentLoaded", () => {
     // Set theme when DOM is ready
@@ -22,6 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 window.onload = () => {
+    queryTagNum = 0
+
     // help info button
     let helpModal = document.querySelector("#help-modal")
     document.querySelector("#help-icon").addEventListener("click", () => {
@@ -39,45 +44,31 @@ window.onload = () => {
         document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
     })
 
-    // tag selection slots
-    Array.from(document.querySelectorAll(".tag-container"))
-    .forEach(slot => clearTag(slot))
+    // populate tags
+    populateTags()
 
-    // tag selection modal
-    let tagModal = document.querySelector("#tag-select-modal")
-    document.querySelectorAll(".tag-container").forEach(tagBtn => {
-        tagBtn.addEventListener("click", (event) => {
-            tagModal.style.display = "block"
-            prepareModal(event.target.closest("li").children[0])
-        })
-    })
-
-    let tagSearchElement = document.querySelector("#tag-search-input")
     // close modal when user clicks outside of the modal
     window.onclick = (event) => {
         if (event.target == helpModal)
             helpModal.style.display = "none"
-        else if (event.target == tagModal) {
-            tagModal.style.display = "none"
-            // clear user's seach
-            tagSearchElement.value = ""
-        }
     }
 
-    // close tag selection modal button
-    document.querySelector("#close-tag-modal").addEventListener("click", () => {
-        tagModal.style.display = "none"
-        tagSearchElement.value = ""
-    })
-
-    // delete all tags
+    // inactive all tags
     document.querySelector("#delete-icon").addEventListener("click", event => {
-        Array.from(document.querySelectorAll(".tag-container"))
-        .forEach(slot => clearTag(slot))
+        Array.from(document.querySelectorAll(".tag"))
+        .forEach(tag => {
+            tag.classList.remove("tag-active")
+            tag.classList.remove("tag-type-active")
+            tag.classList.remove("tag-category-active")
+            tag.classList.remove("tag-race-active")
+            tag.classList.remove("tag-body-active")
+            tag.classList.remove("tag-oppai-active")
+            tag.classList.remove("tag-rank-active")
+            tag.classList.remove("tag-else-active")
+            queryTagNum = 0
+            document.querySelector("#result").innerHTML = ""
+        })
     })
-
-    // filter button
-    document.querySelector("#filterBtn").addEventListener("click", () => filter())
 
     // sort table  
     document.querySelectorAll("th").forEach((th, _, ths) => th.addEventListener("click", () => {
@@ -112,124 +103,18 @@ function sortTable(target, toAsc) {
 }
 
 /**
- * set up tag selection modal
- * @param {HTMLElement} tagSlot where the chosen tag put
+ * populate tags into filter body
  */
-function prepareModal(tagSlot) {
-    //populate tags into tag select modal
-    let tagList = document.querySelector("#tag-list")
-    tagList.innerHTML = ""
+function populateTags() {
+    let tagList = document.querySelector("#tag-container")
     fetch('./tags.json')
     .then(response => response.json())
-    .then(tags => {
-        for (const attr of tags)
-            attr.tags.forEach(tag => addTag(tagSlot, tagList, attr.attribute, tag))
-
-        // search tags
-        document.querySelector("#tag-search-input")
-        .addEventListener("input", (event) => {
-            let query = event.target.value
-            tagList.innerHTML = ""
-            for (const attr of tags) {
-                attr.tags.forEach(tag => {
-                    if (tag.includes(query))
-                        addTag(tagSlot, tagList, attr.attribute, tag)
-                })
-            }
-        })
-
-        // select tab
-        Array.from(document.querySelectorAll(".tag-tab")).forEach(tab => {
-            tab.addEventListener("click", (event) => {
-                Array.from(document.querySelectorAll(".tag-tab"))
-                .forEach(t => t.classList.remove("tab-active"))
-                let tabElement = event.target.closest("li")
-                tabElement.classList.add("tab-active")
-                let tabStr = tabElement.children[0].getAttribute("id")
-                Array.from(tagList.children).forEach(tag => {
-                    if (tag.classList.contains(tabStr)) {
-                        if (tag.classList.contains("tag-hidden"))
-                            tag.classList.remove("tag-hidden")
-                    } else {
-                        if (!tag.classList.contains("tag-hidden"))
-                            tag.classList.add("tag-hidden")
-                    }
-                })
+    .then(data => {
+        for (const attr of data)
+            attr.tags.forEach(tag => {
+                tagList.appendChild(createTagElemet(attr.attribute, tag))
             })
-        })
     })
-}
-
-/**
- * create and add tag to slot
- * @param {HTMLElement} slot where the chosen tag put
- * @param {HTMLElement} target where the tags in the selection modal put
- * @param {String} attribute attribute of the tag
- * @param {attribute} tagStr name of the tag
- */
-function addTag(slot, target, attribute, tagStr) {
-    let tag = createTagElemet(attribute, tagStr)
-    // put the clicked tag into slot
-    tag.addEventListener("click", () => {
-        tag.classList.add("tag")
-        slot.innerHTML = ""
-        slot.classList.remove("tag-type-container")
-        slot.classList.remove("tag-category-container")
-        slot.classList.remove("tag-race-container")
-        slot.classList.remove("tag-body-container")
-        slot.classList.remove("tag-oppai-container")
-        slot.classList.remove("tag-rank-container")
-        slot.classList.remove("tag-else-container")
-        slot.classList.add("tag-" + attribute + "-container")
-        slot.appendChild(tag)
-        let removeIcon = document.createElement("span")
-        removeIcon.innerHTML = "&times;"
-        removeIcon.setAttribute("style", "margin-right: 12px; font-size: 20px; font-weight: bold")
-        removeIcon.addEventListener("click", (event) => {
-            event.stopImmediatePropagation()
-            clearTag(slot)
-        })
-        slot.appendChild(removeIcon)
-        // close modal
-        document.querySelector("#tag-select-modal").style.display = "none"
-        document.querySelector("#tag-search-input").value = ""
-    })
-    tag.classList.add("tag-all")
-    tag.classList.add("tag-" + attribute)
-    target.appendChild(tag)
-}
-
-/**
- * read all tags from slots
- * @returns {Array<String>} tags string in array
- */
-function readTag() {
-    let tags = []
-    Array.from(document.querySelectorAll(".tag")).forEach(tag => {
-        tagStr = tag.children[1].innerHTML
-        if (tagStr != null && tagStr.length > 0
-            && tagStr != "選擇標籤" && !tags.includes(tagStr))
-            tags.push(tagStr)
-    })
-    return tags
-}
-
-/**
- * clear the tag slot
- * @param {HTMLElement} slot where the chosen tag put
- */
-function clearTag(slot) {
-    slot.innerHTML = ""
-    slot.classList.remove("tag-type-container")
-    slot.classList.remove("tag-category-container")
-    slot.classList.remove("tag-race-container")
-    slot.classList.remove("tag-body-container")
-    slot.classList.remove("tag-oppai-container")
-    slot.classList.remove("tag-rank-container")
-    slot.classList.remove("tag-else-container")
-    let plainTag = createTagElemet("tag", "選擇標籤")
-    plainTag.classList.add("tag")
-    slot.appendChild(plainTag)
 }
 
 /**
@@ -240,18 +125,39 @@ function clearTag(slot) {
  */
 function createTagElemet(attribute, tagStr) {
     let tag = document.createElement("div")
+    tag.classList.add("tag")
+    tag.classList.add("tag-" + attribute)
     // create tag icon
     let icon = createIconElement("#" + attribute + "-icon")
     icon.classList.add("filter-icon")
     icon.classList.add("tag-icon")
     // add tag text
-    let tagText =document.createElement("span")
+    let tagText = document.createElement("span")
     tagText.innerHTML = tagStr
     tag.appendChild(icon)
     tag.appendChild(tagText)
+    // toggle tag
+    tag.addEventListener("click", () => {
+        if (tag.classList.contains("tag-" + attribute + "-active")) {
+            tag.classList.remove("tag-active")
+            tag.classList.remove("tag-" + attribute + "-active")
+            queryTagNum--;
+        } else {
+            if (queryTagNum >= 5) {
+                alert("標籤數至多五個")
+                return
+            }
+            tag.classList.add("tag-active")
+            tag.classList.add("tag-" + attribute + "-active")
+            queryTagNum++;
+        }
+        document.querySelector("#result").innerHTML = ""
+        if (queryTagNum == 0) return
+
+        filter()
+    })
     return tag
 }
-
 
 /**
  * create icon in HTMLElement
@@ -287,13 +193,11 @@ function createTooltip(tagStr) {
  * filter the characters by chosen tags
  */
 function filter() {
-    // read and check tags
-    const tagNum = document.querySelector("#applied-tag-num").value
-    let validTags = readTag()
-    if (validTags.length < tagNum) {
-        alert("有效標籤數量過少")
-        return
-    }
+    let queryTags = []
+    Array.from(document.querySelectorAll(".tag")).forEach(tag => {
+        if (tag.classList.contains("tag-active"))
+            queryTags.push(tag.children[1].innerHTML)
+    })
 
     const enlistHour = document.querySelector("#enlist-hour").value
 
@@ -313,9 +217,9 @@ function filter() {
         let result = document.querySelector("#result")
         result.innerHTML = ""
 
-        for (let k = 5; k >= tagNum; k--) {
+        for (let k = 5; k > 0; k--) {
             // generate combinations
-            const queryTagsComb = Array.from(combinations(validTags, k))
+            const queryTagsComb = Array.from(combinations(queryTags, k))
 
             // screen out ineligible characters
             queryTagsComb.forEach(queryTags => {
@@ -362,11 +266,11 @@ function filter() {
                 survivors.forEach(survivor => {
                     let isExist = false
                     addedChars.forEach(c => {
-                        if (c.children[0].innerText != survivor.name)
+                        if (c.children[0].childNodes[0].nodeValue != survivor.name)
                             return true
                         isExist = true
-                        let distinctTagElement = c.children[c.childElementCount - 1].children[0]
                         if (isDistinct) {
+                            let distinctTagElement = c.children[0].children[0]
                             if (distinctTagElement != null) {
                                 // update tooltip
                                 let curText = distinctTagElement.children[1]
@@ -390,7 +294,7 @@ function filter() {
                                 }
                             } else {
                                 // create tooltip
-                                c.children[c.childElementCount - 1].appendChild(createTooltip(queryTagsStr))
+                                c.children[0].appendChild(createTooltip(queryTagsStr))
                             }
                         }
                     })
@@ -425,7 +329,7 @@ function filter() {
 
                     if (isDistinct) {
                         // create tooltip
-                        appliedTagsCol.appendChild(createTooltip(queryTagsStr))
+                        nameCol.appendChild(createTooltip(queryTagsStr))
                     }
 
                     appliedTagsCol.addEventListener("click", () => {
@@ -435,8 +339,8 @@ function filter() {
                         //update table
                         let trs = document.querySelectorAll("tr")
                         for (let i = trs.length - 1; i > 0; i--) {
-                            const selectedTags = trs[i].lastChild.innerHTML.split(", ")
-                            if (!queryTags.every(t => selectedTags.includes(t)))
+                            const queryTags = trs[i].lastChild.innerHTML.split(", ")
+                            if (!queryTags.every(t => queryTags.includes(t)))
                                 document.querySelector("#result").deleteRow(i - 1)
                         }
                     })
