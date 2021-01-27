@@ -142,6 +142,10 @@ function createTagElemet(attribute, tagStr) {
             tag.classList.remove("tag-active")
             tag.classList.remove("tag-" + attribute + "-active")
             queryTagNum--;
+            if (queryTagNum == 0) {
+                document.querySelector("#result").innerHTML = ""
+                return
+            }
         } else {
             if (queryTagNum >= 5) {
                 alert("標籤數至多五個")
@@ -151,9 +155,6 @@ function createTagElemet(attribute, tagStr) {
             tag.classList.add("tag-" + attribute + "-active")
             queryTagNum++;
         }
-        document.querySelector("#result").innerHTML = ""
-        if (queryTagNum == 0) return
-
         filter()
     })
     return tag
@@ -258,9 +259,7 @@ function filter() {
 
                 let addedChars = Array.from(result.children)
                 if (addedChars.length > 0)
-                chars = chars.filter(
-                    char => !addedChars.some(s => s.children[0].innerText == char)
-                )
+                chars = chars.filter(char => !addedChars.some(s => s.children[0].innerText == char))
 
                 // update result
                 survivors.forEach(survivor => {

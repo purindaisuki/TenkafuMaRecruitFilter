@@ -262,7 +262,6 @@ ul {
 .filter-title {
     font-size: large;
     margin-right: auto;
-    padding-right: 80px;
 }
 
 .filter-title > label {
@@ -286,7 +285,7 @@ select {
 }
 
 #delete-icon {
-    margin-left: 8px;
+    margin-right: 8px;
     cursor: pointer;
 }
 
