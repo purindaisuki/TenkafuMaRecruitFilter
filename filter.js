@@ -339,8 +339,8 @@ function filter() {
                         //update table
                         let trs = document.querySelectorAll("tr")
                         for (let i = trs.length - 1; i > 0; i--) {
-                            const queryTags = trs[i].lastChild.innerHTML.split(", ")
-                            if (!queryTags.every(t => queryTags.includes(t)))
+                            const selectedTags = trs[i].lastChild.innerHTML.split(", ")
+                            if (!queryTags.every(t => selectedTags.includes(t)))
                                 document.querySelector("#result").deleteRow(i - 1)
                         }
                     })
