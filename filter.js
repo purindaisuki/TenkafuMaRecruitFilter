@@ -114,6 +114,11 @@ function populateTags() {
             attr.tags.forEach(tag => {
                 tagList.appendChild(createTagElemet(attr.attribute, tag))
             })
+
+        // set table max height
+        let height = document.querySelector("#filter-panel").offsetHeight
+        document.querySelector("#result-container")
+        .setAttribute("style", "max-height:" + height + "px")
     })
 }
 

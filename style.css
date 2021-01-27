@@ -224,7 +224,7 @@ input:checked + .slider:before {
 
 .main-container {
     padding: 12px; margin-top: 56px;
-    display: flex; flex-wrap: wrap;
+    display: flex;
     justify-content: left;
 }
 
@@ -305,7 +305,7 @@ select {
 }
 
 .tag {
-    padding: 6px; margin: 2px;
+    padding: 4px; margin: 4px;
     cursor: pointer;
     border-radius: 4px;
 }
@@ -318,12 +318,7 @@ select {
 #result-container {
     overflow-x: hidden;
     overflow-y: auto;
-    max-height: 578px;
     scrollbar-width: thin;
-}
-
-#result {
-    overflow-y: auto;
 }
 
 #result-container::-webkit-scrollbar {
@@ -494,6 +489,7 @@ footer {
 @media screen and (max-width:800px) {
     .main-container {
         justify-content: center;
+        flex-wrap: wrap;
     }
 
     .modal-content {
