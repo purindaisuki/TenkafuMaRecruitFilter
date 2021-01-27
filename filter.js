@@ -22,6 +22,9 @@ document.addEventListener("DOMContentLoaded", () => {
         document.documentElement.setAttribute("color-mode", toTheme)
         localStorage.setItem("color-mode", toTheme)
     })
+
+    // populate tags
+    populateTags()
 });
 
 window.onload = () => {
@@ -43,9 +46,6 @@ window.onload = () => {
         document.body.scrollTop = 0 // For Safari
         document.documentElement.scrollTop = 0 // For Chrome, Firefox, IE and Opera
     })
-
-    // populate tags
-    populateTags()
 
     // close modal when user clicks outside of the modal
     window.onclick = (event) => {
