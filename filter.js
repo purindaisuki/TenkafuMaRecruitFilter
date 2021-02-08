@@ -30,6 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
 window.onload = () => {
     queryTagNum = 0
 
+    // info modal
+    let infoModal = document.querySelector("#info-modal")
+    infoModal.style.display = "block"
+    document.querySelector("#close-info-modal").addEventListener("click", () => {
+        infoModal.style.display = "none"
+    })
+
     // help info button
     let helpModal = document.querySelector("#help-modal")
     document.querySelector("#help-icon").addEventListener("click", () => {
@@ -51,6 +58,8 @@ window.onload = () => {
     window.onclick = (event) => {
         if (event.target == helpModal)
             helpModal.style.display = "none"
+        if (event.target == infoModal)
+            infoModal.style.display = "none"
     }
 
     // inactive all tags
